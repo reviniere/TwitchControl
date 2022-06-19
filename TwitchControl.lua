@@ -15,6 +15,7 @@ function TwitchControl.Send(message)
   msg = split(message, ' ')
   username = table.remove(msg, 1)
   sentCommand = table.remove(msg, 1)
+  sentFunction = ""
   args = msg -- After removing username and function, all remaining pieces are arguments
 
   -- For each command, search case insensitive for matching function.
@@ -22,6 +23,7 @@ function TwitchControl.Send(message)
   for cmd, func in pairs(TwitchControl.Functions) do
     if (string.lower(cmd) == string.lower(sentCommand)) then
       validCommand = func
+      sentFunction = cmd
       nparams = debug.getinfo(func).nparams
       while TableLength(args) > nparams do
         -- Remove end objects from args until number of args matches number that the function expects
@@ -37,7 +39,7 @@ function TwitchControl.Send(message)
     if not err then
       -- Print notification on screen of who did what
       -- Only print notification after function successfully called, don't notify any which fail
-      local logLine = username .. " sent " .. sentCommand
+      local logLine = username .. " sent " .. sentFunction
       if TableLength(args) > 0 then
         logLine = logLine .. ' : ' .. table.concat(args, ', ')
       end
@@ -53,6 +55,96 @@ function TwitchControl.Send(message)
   end
 end
 
+function TwitchControl.Functions.AddMaxHealth()
+  AddMaxHealth(25, "Twitch")
+end
+
+function TwitchControl.Functions.Anvil()
+  ChaosHammerUpgrade()
+end
+
+function TwitchControl.Functions.AssistAllow()
+  CurrentRun.CurrentRoom.UsedAssist = false
+end
+
+function TwitchControl.Functions.AssistBlock()
+  CurrentRun.CurrentRoom.UsedAssist = true
+end
+
+function TwitchControl.Functions.AssistMore()
+  for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+    if traitData.AddAssist then
+      traitData.RemainingUses = traitData.RemainingUses + 1
+    end
+  end
+  HideTraitUI()
+  ShowTraitUI()
+end
+
+function TwitchControl.Functions.DropBoon(god)
+  -- Valid gods: Aphrodite, Ares, Artemis, Athena, Chaos, Demeter, Dionysus, Hermes, Poseidon, Zeus
+  godMap = {
+    aphrodite = "AphroditeUpgrade",
+    ares = "AresUpgrade",
+    artemis = "ArtemisUpgrade",
+    athena = "AthenaUpgrade",
+    chaos = "TrialUpgrade",
+    demeter = "DemeterUpgrade",
+    dionysus = "DionysusUpgrade",
+    hermes = "HermesUpgrade",
+    poseidon = "PoseidonUpgrade",
+    zeus = "ZeusUpgrade"
+  }
+  loot = godMap[string.lower(god)]
+  if loot then
+    CreateLoot({Name = loot, OffsetX = 100})
+  else
+    -------------------------- TODO: Error output, list valid gods
+    ModUtil.DebugPrint('God ' .. god .. ' is not a valid option')
+  end
+end
+
+function TwitchControl.Functions.DropFood(amount)
+  if not amount then
+    amount = 1
+  end
+  for i=0,math.min(math.max(amount-1,0), 6) do 
+    DropHealth( "HealDropRange", CurrentRun.Hero.ObjectId, 300, random()*6, true ) 
+  end
+end
+
+function TwitchControl.Functions.EnemiesHitShields()
+  for id, enemy in pairs( ActiveEnemies ) do
+    enemy.HitShields = enemy.MaxHitShields
+    Heal(enemy, {HealFraction=1})
+  end
+end
+
+function TwitchControl.Functions.EnemiesInvisible()
+  for i, enemy in pairs( ActiveEnemies ) do
+    SetAlpha({Id = i, Fraction = 0, Duration = 0.5})
+  end
+end
+
+function TwitchControl.Functions.EnemiesShields(amount)
+  amount = math.min(math.max(0,amount),1000)
+  for id, enemy in pairs( ActiveEnemies ) do
+    enemy.HealthBuffer = amount
+    Heal(enemy, {HealFraction=1})
+  end
+end
+
+function TwitchControl.Functions.EnemiesVisible()
+  for i, enemy in pairs( ActiveEnemies ) do
+    SetAlpha({Id = i, Fraction = 1, Duration = 0.5})
+  end
+end
+
+function TwitchControl.Functions.Flashbang()
+  FadeOut({Color = Color.White, Duration = 0})
+  FadeIn({Duration = 5})
+end
+
 function TwitchControl.Functions.Money(amount)
   amount = tonumber(amount)
   if amount > 0 then
@@ -65,6 +157,54 @@ function TwitchControl.Functions.Money(amount)
     local max_amount = CurrentRun.Money
     SpendMoney(math.min(math.max(amount*-1,0), max_amount), "Twitch")
   end
+end
+
+function TwitchControl.Functions.SendDusa()
+  DusaAssist({Duration=10})
+end
+
+function TwitchControl.Functions.SendSkelly()
+  SkellyAssist()
+end
+
+function TwitchControl.Functions.Summon(newSummon)
+  -- Valid summons: Meg, Thanatos, Sisyphus, Skelly, Dusa, Achilles
+  summonMap = {
+    meg = "FuryAssistTrait",
+    thanatos = "ThanatosAssistTrait",
+    sisyphus = "SisyphusAssistTrait",
+    skelly = "SkellyAssistTrait",
+    dusa = "DusaAssistTrait",
+    achilles = "AchillesPatroclusAssistTrait"
+  }
+  summonName = string.lower(newSummon)
+  if summonMap[summonName] then
+    for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+      if traitData.AddAssist then
+        UnequipAssist(CurrentRun.Hero, traitData.Title)
+      end
+    end
+    EquipAssist(CurrentRun.Hero, summonMap[summonName])
+  else
+    --------------------------------- TODO: Return message stating invalid argument, with valid options listed
+    ModUtil.DebugPrint('Invalid summon requested')
+  end
+end
+
+function TwitchControl.Functions.ZagInvulnerable()
+  SetPlayerInvulnerable('Twitch')
+end
+
+function TwitchControl.Functions.ZagInvisible()
+  SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 0, Duration = 0.5 })
+end
+
+function TwitchControl.Functions.ZagVulnerable()
+  SetPlayerVulnerable('Twitch')
+end
+
+function TwitchControl.Functions.ZagVisible()
+  SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 1, Duration = 0.5 })
 end
 
 function split(pString, pPattern)
