@@ -1,6 +1,7 @@
 ModUtil.Mod.Register( "TwitchControl" )
 
 TwitchControl.Functions = {}
+TwitchControl.Threads = {}
 
 -- Change PrintStack height to take up less screen estate
 -- Default PrintStackHeight = 10
@@ -11,7 +12,7 @@ ModUtil.Table.Merge( ModUtil.Hades, {
 function TwitchControl.Send(message)
   ModUtil.DebugPrint('Message received: ' .. message)
   message = string.sub(message, 1, 60) -- Limit max length of messages to avoid people spamming things
-  message = string.gsub(message, '[^0-9a-zA-Z _-]', '') -- filter message to whitelisted characters
+  message = string.gsub(message, '[^0-9a-zA-Z ._-]', '') -- filter message to whitelisted characters
   msg = split(message, ' ')
   username = table.remove(msg, 1)
   sentCommand = table.remove(msg, 1)
@@ -81,6 +82,10 @@ function TwitchControl.Functions.AssistMore()
   ShowTraitUI()
 end
 
+function TwitchControl.Functions.BuildCall()
+  BuildSuperMeter(CurrentRun, CurrentRun.Hero.SuperMeterLimit)
+end
+
 function TwitchControl.Functions.DropBoon(god)
   -- Valid gods: Aphrodite, Ares, Artemis, Athena, Chaos, Demeter, Dionysus, Hermes, Poseidon, Zeus
   godMap = {
@@ -145,6 +150,14 @@ function TwitchControl.Functions.Flashbang()
   FadeIn({Duration = 5})
 end
 
+function TwitchControl.Functions.FocusIntensifies()
+  DoCerberusAssistPresentation()
+end
+
+function TwitchControl.Functions.GiveEuridiceNectar()
+  AddSuperRarityBoost()
+end
+
 function TwitchControl.Functions.Money(amount)
   amount = tonumber(amount)
   if amount > 0 then
@@ -157,6 +170,11 @@ function TwitchControl.Functions.Money(amount)
     local max_amount = CurrentRun.Money
     SpendMoney(math.min(math.max(amount*-1,0), max_amount), "Twitch")
   end
+end
+
+function TwitchControl.Functions.Rerolls(amount)
+  amount = math.max(math.min(amount,5), -5)
+  AddRerolls(amount, "Twitch", { IgnoreMetaUpgrades = true })
 end
 
 function TwitchControl.Functions.SendDusa()
@@ -191,6 +209,18 @@ function TwitchControl.Functions.Summon(newSummon)
   end
 end
 
+function TwitchControl.Functions.ZagFreeze()
+  FreezePlayerUnit('Twitch')
+  ModUtil.Hades.PrintOverhead("Frozen", 2)
+  thread( TwitchControl.Threads.ZagUnfreeze )
+end
+
+function TwitchControl.Threads.ZagUnfreeze()
+  wait( 2.0 )
+  ModUtil.Hades.PrintOverhead("Unfrozen", 2)
+  UnfreezePlayerUnit('Twitch')
+end
+
 function TwitchControl.Functions.ZagInvulnerable()
   SetPlayerInvulnerable('Twitch')
 end
@@ -205,6 +235,10 @@ end
 
 function TwitchControl.Functions.ZagVisible()
   SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 1, Duration = 0.5 })
+end
+
+function TwitchControl.Functions.Zoom(fraction)
+  AdjustZoom({Fraction = math.max(0.2,math.min(3, fraction)), LerpTime = 0.4})
 end
 
 function split(pString, pPattern)
