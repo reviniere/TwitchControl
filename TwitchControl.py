@@ -11,7 +11,12 @@ class Bot(commands.Bot):
     with open(os.path.relpath('Content/StyxScribeScripts/TwitchControlConfig.json')) as f:
       config = json.load(f)
     self.default_channel = config['joinChannel']
-    super().__init__(token=config['oauthToken'], prefix='!', initial_channels=[self.default_channel])
+    try:
+      oauthToken = os.environ['TWITCH_CONTROL_OAUTH_TOKEN']
+    except KeyError:
+      print('TWITCH_CONTROL_OAUTH_TOKEN environment variable not found, defaulting to TwitchControlConfig.json')
+      oauthToken = config['oauthToken']
+    super().__init__(token=oauthToken, prefix='!', initial_channels=[self.default_channel])
     scribe.add_hook(self.handle_reply, StyxScribePrefix + "Reply", __name__)
     scribe.ignore_prefixes.append(StyxScribePrefix)
 

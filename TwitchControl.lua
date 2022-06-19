@@ -1,8 +1,6 @@
 ModUtil.Mod.Register( "TwitchControl" )
 
-TwitchControl = {
-  Functions = {}
-}
+TwitchControl.Functions = {}
 
 -- Change PrintStack height to take up less screen estate
 -- Default PrintStackHeight = 10
@@ -88,4 +86,4 @@ function split(pString, pPattern)
   return Table
 end
 
-StyxScribe.AddHook( TwitchControl.Send, "TwitchControl: ", StyxScribeREPL )
+StyxScribe.AddHook(TwitchControl.Send, "TwitchControl: ", TwitchControl)
