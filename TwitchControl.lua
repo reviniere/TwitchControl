@@ -86,6 +86,29 @@ function TwitchControl.Functions.BuildCall()
   BuildSuperMeter(CurrentRun, CurrentRun.Hero.SuperMeterLimit)
 end
 
+function TwitchControl.Functions.DeathDefianceAdd()
+  local atMaxLastStands = CurrentRun.Hero.MaxLastStands == TableLength(CurrentRun.Hero.LastStands)
+  AddLastStand({
+    IncreaseMax = atMaxLastStands,
+    Silent = true,
+    WeaponName = 'LastStandMetaUpgradeShield',
+    Icon = "ExtraLifeHeart",
+    HealFraction = 0.5
+  })
+  UpdateLifePips()
+end
+
+function TwitchControl.Functions.DeathDefianceRemove()
+  if CurrentRun.Hero.MaxLastStands > 0 then
+    CurrentRun.Hero.MaxLastStands = CurrentRun.Hero.MaxLastStands - 1
+  end
+  if TableLength(CurrentRun.Hero.LastStands) > 0 then
+    LostLastStandPresentation()
+    RemoveLastStand()
+    UpdateLifePips()
+  end
+end
+
 function TwitchControl.Functions.DropBoon(god)
   -- Valid gods: Aphrodite, Ares, Artemis, Athena, Chaos, Demeter, Dionysus, Hermes, Poseidon, Zeus
   godMap = {
