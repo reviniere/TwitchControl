@@ -168,6 +168,80 @@ function TwitchControl.Functions.EnemiesVisible()
   end
 end
 
+function TwitchControl.Functions.EquipKeepsake(newKeepsake)
+  local keepsakeMap = {
+    cerberus = "MaxHealthKeepsakeTrait",
+    achilles = "DirectionalArmorTrait",
+    nyx = "BackstabAlphaStrikeTrait",
+    thanatos = "PerfectClearDamageBonusTrait",
+    charon = "ShopDurationTrait",
+    hypnos = "BonusMoneyTrait",
+    meg = "LowHealthDamageTrait",
+    orpheus = "DistanceDamageTrait",
+    dusa = "LifeOnUrnTrait",
+    skelly = "ReincarnationTrait",
+    zeus = "ForceZeusBoonTrait",
+    poseidon = "ForcePoseidonBoonTrait",
+    athena = "ForceAthenaBoonTrait",
+    aphrodite = "ForceAphroditeBoonTrait",
+    ares = "ForceAresBoonTrait",
+    artemis = "ForceArtemisBoonTrait",
+    dionysus = "ForceDionysusBoonTrait",
+    hermes = "FastClearDodgeBonusTrait",
+    demeter = "ForceDemeterBoonTrait",
+    chaos = "ChaosBoonTrait",
+    sisyphus = "VanillaTrait",
+    eurydice = "ShieldBossTrait",
+    patroclus = "ShieldAfterHitTrait",
+    persephone = "ChamberStackTrait",
+    hades = "HadesShoutKeepsake"
+  }
+  local newKeepsakeName = keepsakeMap[string.lower(newKeepsake)]
+  if newKeepsakeName then
+    local currentKeepsake = nil
+    for i,trait in pairs(CurrentRun.Hero.Traits) do
+      if trait.Slot == 'Keepsake' then
+        currentKeepsake = trait.Title
+      end
+    end
+    if currentKeepsake then
+      UnequipKeepsake(CurrentRun.Hero, currentKeepsake)
+      if currentKeepsake == "ReincarnationTrait" or currentKeepsake == "HadesShoutKeepsake" then
+        HideHealthUI()
+        ShowHealthUI()
+      end
+    end
+    EquipKeepsake(CurrentRun.Hero, newKeepsakeName, {})
+  else
+    ---------------------- TODO: Send error advising keepsake not found
+    ModUtil.DebugPrint('Keepsake not found in keepsakeMap for keepsake: ' .. newKeepsake)
+  end
+end
+
+function TwitchControl.Functions.EquipSummon(newSummon)
+  -- Valid summons: Meg, Thanatos, Sisyphus, Skelly, Dusa, Achilles
+  local summonMap = {
+    meg = "FuryAssistTrait",
+    thanatos = "ThanatosAssistTrait",
+    sisyphus = "SisyphusAssistTrait",
+    skelly = "SkellyAssistTrait",
+    dusa = "DusaAssistTrait",
+    achilles = "AchillesPatroclusAssistTrait"
+  }
+  local summonName = string.lower(newSummon)
+  if summonMap[summonName] then
+    for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+      if traitData.AddAssist then
+        UnequipAssist(CurrentRun.Hero, traitData.Title)
+      end
+    end
+    EquipAssist(CurrentRun.Hero, summonMap[summonName])
+  else
+    --------------------------------- TODO: Return message stating invalid argument, with valid options listed
+    ModUtil.DebugPrint('Invalid summon requested')
+  end
+end
+
 function TwitchControl.Functions.Flashbang()
   FadeOut({Color = Color.White, Duration = 0})
   FadeIn({Duration = 5})
@@ -177,7 +251,7 @@ function TwitchControl.Functions.FocusIntensifies()
   DoCerberusAssistPresentation()
 end
 
-function TwitchControl.Functions.GiveEuridiceNectar()
+function TwitchControl.Functions.GiveEurydiceNectar()
   AddSuperRarityBoost()
 end
 
@@ -206,30 +280,6 @@ end
 
 function TwitchControl.Functions.SendSkelly()
   SkellyAssist()
-end
-
-function TwitchControl.Functions.Summon(newSummon)
-  -- Valid summons: Meg, Thanatos, Sisyphus, Skelly, Dusa, Achilles
-  summonMap = {
-    meg = "FuryAssistTrait",
-    thanatos = "ThanatosAssistTrait",
-    sisyphus = "SisyphusAssistTrait",
-    skelly = "SkellyAssistTrait",
-    dusa = "DusaAssistTrait",
-    achilles = "AchillesPatroclusAssistTrait"
-  }
-  summonName = string.lower(newSummon)
-  if summonMap[summonName] then
-    for i, traitData in pairs( CurrentRun.Hero.Traits ) do
-      if traitData.AddAssist then
-        UnequipAssist(CurrentRun.Hero, traitData.Title)
-      end
-    end
-    EquipAssist(CurrentRun.Hero, summonMap[summonName])
-  else
-    --------------------------------- TODO: Return message stating invalid argument, with valid options listed
-    ModUtil.DebugPrint('Invalid summon requested')
-  end
 end
 
 function TwitchControl.Functions.ZagFreeze()
