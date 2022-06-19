@@ -1,0 +1,5 @@
+Import "TwitchControl.lua"
+To "StyxScribeScripts/TwitchControl.py"
+Replace "TwitchControl.py"
+To "StyxScribeScripts/TwitchControlConfig.json"
+Replace "TwitchControlConfig.json"
