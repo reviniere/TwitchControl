@@ -12,7 +12,6 @@ ModUtil.Table.Merge( ModUtil.Hades, {
 function TwitchControl.Send(message)
   ModUtil.DebugPrint('Message received: ' .. message)
   message = string.sub(message, 1, 60) -- Limit max length of messages to avoid people spamming things
-  message = string.gsub(message, '[^0-9a-zA-Z ._-]', '') -- filter message to whitelisted characters
   msg = split(message, ' ')
   username = table.remove(msg, 1)
   sentCommand = table.remove(msg, 1)

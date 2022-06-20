@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import threading
 from twitchio.ext import commands
 
@@ -33,6 +34,7 @@ class Bot(commands.Bot):
   async def hades(self, ctx: commands.Context):
     msg = ctx.message.content
     cmd = msg.replace('!hades ','')
+    cmd = re.sub('[^0-9a-zA-Z ._-]', '', cmd)
     scribe.send(StyxScribePrefix + ctx.author.name + ' ' + cmd)
     #await ctx.send(f'Hey {ctx.author.name}!')
 
