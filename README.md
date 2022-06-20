@@ -35,47 +35,47 @@ Some commands persist until the end of the run, some will revert as soon as the 
 
 ### Commands
 
-#### AddMaxHealth
+####   > AddMaxHealth
 `!hades AddMaxHealth`
 *Per run*
 Adds 25 to max health
 
-#### Anvil
+####   > Anvil
 `!hades Anvil`
 *Per run*
 Uses an Anvil of Fates
 
-#### 
+####   > AssistAdd
 `!hades AssistAdd`
 *Per run*
 Adds an extra assist usage
 
-#### AssistAllow
+####   > AssistAllow
 `!hades AssistAllow`
 *Per encounter*
 Permits a summon to be used again in this encounter if you have uses remaining
 
-#### AssistBlock
+####   > AssistBlock
 `!hades AssistBlock`
 *Per encounter*
 Blocks a summon being used in this encounter even if it was otherwise allowed
 
-#### BuildCall
+####   > BuildCall
 `!hades BuildCall`
 *Per encounter*
 Adds one segement to the player's call bar
 
-#### DeathDefianceAdd
+####   > DeathDefianceAdd
 `!hades DeathDefianceAdd`
 *Per run*
 Adds a death defiance and a new slot if needed
 
-#### DeathDefianceRemove
+####   > DeathDefianceRemove
 `!hades DeathDefianceRemove`
 *Per run*
 Removes a death defiance and its slot
 
-#### DropBoon
+####   > DropBoon
 `!hades DropBoon god`
 *Per encounter*
 Drops a room reward boon of the specified god.
@@ -93,34 +93,34 @@ Valid gods:
 * Poseidon
 * Zeus
 
-#### DropFood
+####   > DropFood
 `!hades DropFood x`
 *Per encounter*
 Drops x number of food items, max 6.
 e.g. `!hades DropFood 1`
 
-#### EnemiesHitShields
+####   > EnemiesHitShields
 `!hades EnemiesHitShields`
 *Per encounter*
 Adds max hit shields to all active enemies, and heals them to full health
 
-#### EnemiesInvisible
+####   > EnemiesInvisible
 `!hades EnemiesInvisible`
 *Per encounter*
 Makes all active enemies invisible
 
-#### EnemiesShields
+####   > EnemiesShields
 `!hades EnemiesShields x`
 *Per encounter*
 Adds x amount of shield to all active enemies. Max 1000
 e.g. `!hades EnemiesShields 200`
 
-#### EnemiesVisible
+####   > EnemiesVisible
 `!hades EnemiesVisible`
 *Per encounter*
 Makes all active enemies visible
 
-#### EquipKeepsake
+####   > EquipKeepsake
 `!hades EquipKeepsake gifter`
 *Per run*
 Change the currently equipped keepsake
@@ -153,7 +153,7 @@ Valid gifters you can equip keepsakes from (in order of display in game):
 * Persephone
 * Hades
 
-#### EquipSummon
+####   > EquipSummon
 `!hades EquipSummon gifter`
 *Per run*
 Change the currently equipped summon
@@ -167,69 +167,69 @@ Valid gifters you can equip summons from (in order of display in game):
 * Dusa
 * Achilles
 
-#### Flashbang
+####   > Flashbang
 `!hades Flashbang`
 *Per encounter*
 Turns the screen white instantly then fades back to normal
 
-#### FocusIntensifies
+####   > FocusIntensifies
 `!hades FocusIntensifies`
 *Per encounter*
 Plays the screen effects and audio from the Cerberus summon
 
-#### GiveEurydiceNectar
+####   > GiveEurydiceNectar
 `!hades GiveEurydiceNectar`
 *Per run*
 Gives the player the Eurydice powerup Refreshing Nectar (the next 3 Boons you find have upgraded Rarity)
 
-#### Money
+####   > Money
 `!hades Money x`
 *Per run*
 Gives or takes money from the player. Max gift: 1000. Max take: All of it
 e.g. `!hades Money 100` or `!hades Money -100`
 
-#### Rerolls
+####   > Rerolls
 `!hades Rerolls x`
 *Per run*
 Gives or takes rerolls to the player. Range: 5 to -5
 e.g. `!hades Rerolls 1` or `!hades Rerolls -1`
 
-#### SendDusa
+####   > SendDusa
 `!hades SendDusa`
 *Per encounter*
 Sends the Dusa summon regardless of which summon is equipped
 
-#### SendSkelly
+####   > SendSkelly
 `!hades SendSkelly`
 *Per encounter*
 Sends the Skelly summon regardless of which summon is equipped
 
-#### ZagFreeze
+####   > ZagFreeze
 `!hades ZagFreeze`
 *Per encounter*
 Freezes Zag in place for 2 seconds
 
-#### ZagInvulnerable
+####   > ZagInvulnerable
 `!hades ZagInvulnerable`
 *Per encounter*
 Makes Zag invulnerable
 
-#### ZagInvisible
+####   > ZagInvisible
 `!hades ZagInvisible`
 *Per encounter*
 Makes Zag invisible
 
-#### ZagVulnerable
+####   > ZagVulnerable
 `!hades ZagVulnerable`
 *Per encounter*
 Makes Zag vulnerable (only has an effect if he was made invulnerable earlier in this encounter)
 
-#### ZagVisible
+####   > ZagVisible
 `!hades ZagVisible`
 *Per encounter*
 Makes Zag visible (only has an effect if he was made invisible earlier in this encounter)
 
-#### Zoom
+####   > Zoom
 `!hades Zoom x`
 *Per encounter*
 Changes zoom level of current room. Valid range: 0.2 to 3.0. 0.2 is way zoomed out, 3.0 is way zoomed in. 1 is default.
