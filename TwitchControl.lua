@@ -64,15 +64,7 @@ function TwitchControl.Functions.Anvil()
   ChaosHammerUpgrade()
 end
 
-function TwitchControl.Functions.AssistAllow()
-  CurrentRun.CurrentRoom.UsedAssist = false
-end
-
-function TwitchControl.Functions.AssistBlock()
-  CurrentRun.CurrentRoom.UsedAssist = true
-end
-
-function TwitchControl.Functions.AssistMore()
+function TwitchControl.Functions.AssistAdd()
   for i, traitData in pairs( CurrentRun.Hero.Traits ) do
     if traitData.AddAssist then
       traitData.RemainingUses = traitData.RemainingUses + 1
@@ -80,6 +72,14 @@ function TwitchControl.Functions.AssistMore()
   end
   HideTraitUI()
   ShowTraitUI()
+end
+
+function TwitchControl.Functions.AssistAllow()
+  CurrentRun.CurrentRoom.UsedAssist = false
+end
+
+function TwitchControl.Functions.AssistBlock()
+  CurrentRun.CurrentRoom.UsedAssist = true
 end
 
 function TwitchControl.Functions.BuildCall()
