@@ -3,6 +3,8 @@ ModUtil.Mod.Register( "TwitchControl" )
 TwitchControl.Functions = {}
 TwitchControl.Threads = {}
 
+TC = {}
+
 -- Change PrintStack height to take up less screen estate
 -- Default PrintStackHeight = 10
 ModUtil.Table.Merge( ModUtil.Hades, {
@@ -37,22 +39,21 @@ function TwitchControl.Send(message)
     local ret, err = pcall(validCommand, table.unpack(args))
 
     if not err then
-      -- Print notification on screen of who did what
-      -- Only print notification after function successfully called, don't notify any which fail
       local logLine = username .. " sent " .. sentFunction
       if TableLength(args) > 0 then
         logLine = logLine .. ' : ' .. table.concat(args, ', ')
       end
       ModUtil.Hades.PrintStack(logLine)
-
-      ------------------------- TODO: Send reply back to Twitch chat with @ of person who sent message if applicable
     end
   else
     ModUtil.DebugPrint("Debug:: TwitchControl: Reply @" .. username .. " the command '" .. sentCommand .. "'was not found, please try again.")
-    print("TwitchControl: Reply @" .. username .. " the command '" .. sentCommand .. "' was not found, please try again.")
-    --------------------------- TODO: Send reply back to Twitch chat saying invalid command
+    TC.Reply("@" .. username .. " the command '" .. sentCommand .. "' was not found, please try again.")
     return
   end
+end
+
+function TC.Reply(msg)
+  print("TwitchControl: Reply " .. msg)
 end
 
 function TwitchControl.Functions.AddMaxHealth()
@@ -126,8 +127,11 @@ function TwitchControl.Functions.DropBoon(god)
   if loot then
     CreateLoot({Name = loot, OffsetX = 100})
   else
-    -------------------------- TODO: Error output, list valid gods
-    ModUtil.DebugPrint('God ' .. god .. ' is not a valid option')
+    validGods = {}
+    for god,upgrade in pairs(godMap) do
+      table.insert(validGods, titleize(god))
+    end
+    TC.Reply('God ' .. god .. ' not valid. Valid options: ' .. table.concat(validGods, ', '))
   end
 end
 
@@ -212,8 +216,11 @@ function TwitchControl.Functions.EquipKeepsake(newKeepsake)
     end
     EquipKeepsake(CurrentRun.Hero, newKeepsakeName, {})
   else
-    ---------------------- TODO: Send error advising keepsake not found
-    ModUtil.DebugPrint('Keepsake not found in keepsakeMap for keepsake: ' .. newKeepsake)
+    validGifters = {}
+    for gifter,trait in pairs(keepsakeMap) do
+      table.insert(validGifters, titleize(gifter))
+    end
+    TC.Reply('Keepsake ' .. titleize(newKeepsake) .. ' not valid. Valid options: ' .. table.concat(validGifters, ', '))
   end
 end
 
@@ -236,8 +243,11 @@ function TwitchControl.Functions.EquipSummon(newSummon)
     end
     EquipAssist(CurrentRun.Hero, summonMap[summonName])
   else
-    --------------------------------- TODO: Return message stating invalid argument, with valid options listed
-    ModUtil.DebugPrint('Invalid summon requested')
+    validSummons = {}
+    for summoner,trait in pairs(summonMap) do
+      table.insert(validSummons, titleize(summoner))
+    end
+    TC.Reply('Summon ' .. titleize(newSummon) .. ' not valid. Valid options: ' .. table.concat(validSummons, ', '))
   end
 end
 
@@ -330,6 +340,10 @@ function split(pString, pPattern)
      table.insert(Table, cap)
   end
   return Table
+end
+
+function titleize(str)
+  return string.gsub(" "..str, "%W%l", string.upper):sub(2)
 end
 
 StyxScribe.AddHook(TwitchControl.Send, "TwitchControl: ", TwitchControl)

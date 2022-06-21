@@ -24,19 +24,23 @@ class Bot(commands.Bot):
   async def event_ready(self):
     print(f'Twitch Bot logged in as: {self.nick} to channel {self.default_channel}')
 
-  def handle_reply(self, s):
+  async def handle_reply(self, s):
     print('Handle reply')
     print(s)
     channel = self.get_channel(self.default_channel)
-    #await channel.send(s)
+    await channel.send(s)
 
   @commands.command()
   async def hades(self, ctx: commands.Context):
     msg = ctx.message.content
     cmd = msg.replace('!hades ','')
+    cmd = cmd.replace('!h ','')
     cmd = re.sub('[^0-9a-zA-Z ._-]', '', cmd)
     scribe.send(StyxScribePrefix + ctx.author.name + ' ' + cmd)
-    #await ctx.send(f'Hey {ctx.author.name}!')
+
+  @commands.command()
+  async def h(self, ctx: commands.Context):
+    await self.hades(ctx)
 
 def load():
   bot = Bot()
