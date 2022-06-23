@@ -64,6 +64,63 @@ function TwitchControl.Functions.Anvil()
   ChaosHammerUpgrade()
 end
 
+function TwitchControl.Functions.AntiAnvil(args)
+  args = args or {}
+	local hammerTraits = {}
+	local addedTraits = {}
+  local numRemovedTraits = args.NumRemovedTraits or 2
+	local numNewTraits = args.NumNewTraits or 1
+	for i, trait in pairs( CurrentRun.Hero.Traits ) do
+		if LootData.WeaponUpgrade.TraitIndex[trait.Name] then
+			table.insert(hammerTraits, trait.Name )
+		end
+	end
+
+	local removedTraitNames = {}
+  for i = 1 , numRemovedTraits do
+    if not IsEmpty( hammerTraits ) then
+      removedTraitName = RemoveRandomValue( hammerTraits )
+      table.insert(removedTraitNames, removedTraitName)
+      RemoveWeaponTrait( removedTraitName )
+    end
+  end
+
+	for i = 1, numNewTraits do
+		local validTraitNames = {}
+		for i, traitName in pairs( LootData.WeaponUpgrade.Traits ) do
+			if IsTraitEligible(CurrentRun, TraitData[traitName]) and not Contains(removedTraitNames, traitName) and not Contains(hammerTraits, traitName) then
+				table.insert( validTraitNames, traitName )
+			end
+		end
+
+		if not IsEmpty( validTraitNames ) then
+			local newTraitName = RemoveRandomValue( validTraitNames )
+			AddTraitToHero({ TraitName =  newTraitName })
+			table.insert( hammerTraits, newTraitName )
+			table.insert( addedTraits, newTraitName )
+		end
+	end
+		
+	thread( TwitchControl.Threads.AntiAnvilPresentation, removedTraitNames, addedTraits )
+end
+
+function TwitchControl.Threads.AntiAnvilPresentation( traitsRemoved, traitsAdded )
+  local offsetY = -80
+  for _, traitRemoved in pairs( traitsRemoved ) do
+    CreateAnimation({ Name = "ItemGet_PomUpgraded", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
+    thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ChaosAnvilRemove_CombatText", SkipRise = false, SkipFlash = false, ShadowScale = 0.75, OffsetY = offsetY, Duration = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitRemoved }})
+    wait(0.75)
+    offsetY = offsetY - 60
+  end
+  for _, traitName in pairs( traitsAdded ) do
+    PlaySound({ Name = "/SFX/WeaponUpgradeHammerPickup", DestinationId = CurrentRun.Hero.ObjectId })
+    CreateAnimation({ Name = "ItemGet_PomUpgraded", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
+    thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ChaosAnvilAdd_CombatText", SkipRise = false, SkipFlash = false, ShadowScale = 0.75, OffsetY = offsetY, Duration = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+    wait(0.75)
+    offsetY = offsetY - 60
+  end
+end
+
 function TwitchControl.Functions.AssistAdd()
   for i, traitData in pairs( CurrentRun.Hero.Traits ) do
     if traitData.AddAssist then

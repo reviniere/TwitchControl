@@ -38,7 +38,8 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | Command | Format | Per run/encounter | Description |
 | --- | --- | --- | --- |
 | AddMaxHealth | `!hades AddMaxHealth` | Run | Adds 25 to max health |
-| Anvil | `!hades Anvil` | Run | Uses an Anvil of Fates |
+| AntiAnvil | `!hades AntiAnvil` | Run | Reverse of Anvil of fates (Take two hammer upgrades, add one) |
+| Anvil | `!hades Anvil` | Run | Uses an Anvil of Fates (Take one hammer upgrade, add two) |
 | AssistAdd | `!hades AssistAdd` | Run | Adds an extra assist usage |
 | AssistAllow | `!hades AssistAllow` | Encounter | Permits a summon to be used again in this encounter if you have uses remaining |
 | AssistBlock | `!hades AssistBlock` | Encounter | Blocks a summon being used in this encounter even if it was otherwise allowed |
