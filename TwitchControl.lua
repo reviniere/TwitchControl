@@ -352,7 +352,7 @@ function TwitchControl.Functions.Speed(amount)
   amount = tonumber(amount)
   if amount then
     amount = math.min(math.max(amount,0.2),5)
-    local speedLastsForRealSeconds = 30
+    local speedLastsForRealSeconds = 20
     ModUtil.Hades.PrintOverhead("Speed Change", 1.5*amount)
     TwitchControl.speedExpiresAt = _worldTime + (speedLastsForRealSeconds*amount)
   else
