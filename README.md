@@ -25,7 +25,9 @@ Once you have met the prerequisites and completed the setup steps, you must run 
 
 ### Format
 
-Chat commands can be used by typing in chat in this format: `!hades command value`
+Chat commands can be used by typing in chat in this format: `!hades command value`.
+
+All commands can start with `!h` or `!hades`.
 
 e.g. `!hades money 100` will give the player 100 gold and `!hades money -100` will take 100 gold from the player.
 
@@ -35,7 +37,7 @@ Some commands persist until the end of the run, some will revert as soon as the 
 
 ### Commands
 
-| Command | Format | Per run/encounter | Description |
+| Command | Format | Effect duration | Description |
 | --- | --- | --- | --- |
 | AddMaxHealth | `!hades AddMaxHealth` | Run | Adds 25 to max health |
 | AntiAnvil | `!hades AntiAnvil` | Run | Reverse of Anvil of fates (Take two hammer upgrades, add one) |
@@ -61,6 +63,7 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | Rerolls | `!hades Rerolls` | Run | Gives or takes rerolls to the player. Range: 5 to -5<br>e.g. `!hades Rerolls 1` or `!hades Rerolls -1` |
 | SendDusa | `!hades SendDusa` | Encounter | Sends the Dusa summon regardless of which summon is equipped |
 | SendSkelly | `!hades SendSkelly` | Encounter | Sends the Skelly summon regardless of which summon is equipped |
+| Speed | `!hades Speed x` | Encounter | 30 sec | Changes the game speed multiplier<br>e.g. `!hades Speed 3` or `!hades Speed 0.5` |
 | ZagFreeze | `!hades ZagFreeze` | Encounter | Freezes Zag in place for 2 seconds |
 | ZagInvulnerable | `!hades ZagInvulnerable` | Encounter | Makes Zag invulnerable |
 | ZagInvisible | `!hades ZagInvisible` | Encounter | Makes Zag invisible |

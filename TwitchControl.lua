@@ -3,7 +3,7 @@ ModUtil.Mod.Register( "TwitchControl" )
 TwitchControl.Functions = {}
 TwitchControl.Threads = {}
 
-TC = {}
+local TC = TwitchControl
 
 -- Change PrintStack height to take up less screen estate
 -- Default PrintStackHeight = 10
@@ -346,6 +346,32 @@ end
 
 function TwitchControl.Functions.SendSkelly()
   SkellyAssist()
+end
+
+function TwitchControl.Functions.Speed(amount)
+  amount = tonumber(amount)
+  if amount then
+    amount = math.min(math.max(amount,0.2),5)
+    local speedLastsForRealSeconds = 30
+    ModUtil.Hades.PrintOverhead("Speed Change", 1.5*amount)
+    TwitchControl.speedExpiresAt = _worldTime + (speedLastsForRealSeconds*amount)
+  else
+    TC.Reply('Speed amount not a valid number. Please try again.')
+  end
+  TwitchControl.speed = amount
+  thread( TwitchControl.Threads.Speed )
+end
+
+function TwitchControl.Threads.Speed()
+  while TwitchControl.speed do
+    AdjustSimulationSpeed({Fraction = TwitchControl.speed, LerpTime = 0})
+    wait( 0.05 )
+    if TwitchControl.speedExpiresAt <= _worldTime then
+      break
+    end
+  end
+  AdjustSimulationSpeed({Fraction = 1, LerpTime = 0.25})
+  ModUtil.Hades.PrintOverhead("Normal Speed", 1.5)
 end
 
 function TwitchControl.Functions.ZagFreeze()
