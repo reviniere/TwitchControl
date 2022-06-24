@@ -61,7 +61,7 @@ function TwitchControl.Functions.AddMaxHealth()
 end
 
 function TwitchControl.Functions.Anvil()
-  ChaosHammerUpgrade()
+  TwitchControl.Functions.AntiAnvil({NumNewTraits = 2, NumRemovedTraits = 1})
 end
 
 function TwitchControl.Functions.AntiAnvil(args)
