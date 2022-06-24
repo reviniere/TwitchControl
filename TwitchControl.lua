@@ -166,6 +166,40 @@ function TwitchControl.Functions.DeathDefianceRemove()
   end
 end
 
+function TwitchControl.Functions.DisableInput(input)
+  if not input then
+    TC.Reply('Input must be specified. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
+    return
+  end
+  inputMap = {
+    attack = 'Attack2',
+    special = 'Attack3',
+    cast = 'Attack1',
+    dash = 'Rush',
+    call = 'Shout',
+    summon = 'Assist'
+  }
+  local disableInput = inputMap[string.lower(input)]
+  local delaySec = 10
+  if disableInput then
+    ModUtil.Hades.PrintOverhead("Disabled " .. titleize(input), 2)
+    ToggleControl({Names = {disableInput}, Enabled = false})
+    thread(TwitchControl.Threads.EnableInput, {input = disableInput, inputDesc = input, delaySeconds = delaySec})
+  else
+    TC.Reply('Input type not found. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
+  end
+end
+
+function TwitchControl.Threads.EnableInput(args)
+  args = args or {}
+  local input = args.input
+  local inputDesc = args.inputDesc
+  local delay = args.delaySeconds or 10
+  wait(delay)
+  ModUtil.Hades.PrintOverhead("Enabled " .. titleize(inputDesc), 2)
+  ToggleControl({Names = {input}, Enabled = true})
+end
+
 function TwitchControl.Functions.DropBoon(god)
   -- Valid gods: Aphrodite, Ares, Artemis, Athena, Chaos, Demeter, Dionysus, Hermes, Poseidon, Zeus
   godMap = {
@@ -426,7 +460,7 @@ function split(pString, pPattern)
 end
 
 function titleize(str)
-  return string.gsub(" "..str, "%W%l", string.upper):sub(2)
+  return string.lower(str).gsub(" "..str, "%W%l", string.upper):sub(2)
 end
 
 StyxScribe.AddHook(TwitchControl.Send, "TwitchControl: ", TwitchControl)

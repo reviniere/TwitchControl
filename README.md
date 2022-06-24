@@ -48,6 +48,7 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | BuildCall | `!hades BuildCall` | Encounter | Adds one segement to the player's call bar |
 | DeathDefianceAdd | `!hades DeathDefianceAdd` | Run | Adds a death defiance and a new slot if needed |
 | DeathDefianceRemove | `!hades DeathDefianceRemove` | Run | Removes a death defiance and its slot |
+| DisableInput | `!hades DisableInput x` | 10 sec | Disables a specified input for 10 seconds.<br>e.g. `!hades DisableInput Attack`<br>Input options:<br>* Attack,<br>* Special,<br>* Cast,<br>* Dash,<br>* Call,<br>* Summon |
 | DropBoon | `!hades DropBoon god` | Encounter | Drops a room reward boon of the specified god.<br>e.g. `!hades DropBoon Artemis`<br>Valid gods:<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Athena<br>* Chaos<br>* Demeter<br>* Dionysus<br>* Hermes<br>* Poseidon<br>* Zeus<br> |
 | DropFood | `!hades DropFood x` | Encounter | Drops x number of food items, max 6<br>e.g. `!hades DropFood 1` |
 | EnemiesHitShields | `!hades EnemiesHitShields` | Encounter | Adds max hit shields to all active enemies, and heals them to full health |
@@ -63,7 +64,7 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | Rerolls | `!hades Rerolls` | Run | Gives or takes rerolls to the player. Range: 5 to -5<br>e.g. `!hades Rerolls 1` or `!hades Rerolls -1` |
 | SendDusa | `!hades SendDusa` | Encounter | Sends the Dusa summon regardless of which summon is equipped |
 | SendSkelly | `!hades SendSkelly` | Encounter | Sends the Skelly summon regardless of which summon is equipped |
-| Speed | `!hades Speed x` | Encounter | 30 sec | Changes the game speed multiplier<br>e.g. `!hades Speed 3` or `!hades Speed 0.5` |
+| Speed | `!hades Speed x` | 20 sec | Changes the game speed multiplier for 20 seconds. 1 is normal speed. Higher numbers go faster, lower goes slower.<br>e.g. `!hades Speed 3` or `!hades Speed 0.5` |
 | ZagFreeze | `!hades ZagFreeze` | Encounter | Freezes Zag in place for 2 seconds |
 | ZagInvulnerable | `!hades ZagInvulnerable` | Encounter | Makes Zag invulnerable |
 | ZagInvisible | `!hades ZagInvisible` | Encounter | Makes Zag invisible |
