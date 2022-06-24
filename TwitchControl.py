@@ -18,8 +18,8 @@ class Bot(commands.Bot):
       print('TWITCH_CONTROL_OAUTH_TOKEN environment variable not found, defaulting to TwitchControlConfig.json')
       oauthToken = config['oauthToken']
     super().__init__(token=oauthToken, prefix='!', initial_channels=[self.default_channel])
-    scribe.add_hook(self.handle_reply, StyxScribePrefix + "Reply", __name__)
-    scribe.ignore_prefixes.append(StyxScribePrefix)
+    scribe.AddHook(self.handle_reply, StyxScribePrefix + "Reply", __name__)
+    scribe.IgnorePrefixes.append(StyxScribePrefix)
 
   async def event_ready(self):
     print(f'Twitch Bot logged in as: {self.nick} to channel {self.default_channel}')
@@ -36,7 +36,7 @@ class Bot(commands.Bot):
     cmd = msg.replace('!hades ','')
     cmd = cmd.replace('!h ','')
     cmd = re.sub('[^0-9a-zA-Z ._-]', '', cmd)
-    scribe.send(StyxScribePrefix + ctx.author.name + ' ' + cmd)
+    scribe.Send(StyxScribePrefix + ctx.author.name + ' ' + cmd)
 
   @commands.command()
   async def h(self, ctx: commands.Context):

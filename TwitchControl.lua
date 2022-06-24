@@ -5,6 +5,10 @@ TwitchControl.Threads = {}
 
 local TC = TwitchControl
 
+function TC.Reply(msg)
+  print("TwitchControl: Reply " .. msg)
+end
+
 -- Change PrintStack height to take up less screen estate
 -- Default PrintStackHeight = 10
 ModUtil.Table.Merge( ModUtil.Hades, {
@@ -36,7 +40,7 @@ function TwitchControl.Send(message)
   end
 
   if validCommand then
-    local ret, err = pcall(validCommand, table.unpack(args))
+    local ret, err = pcall(validCommand, username, table.unpack(args))
 
     if not err then
       local logLine = username .. " sent " .. sentFunction
@@ -52,10 +56,6 @@ function TwitchControl.Send(message)
   end
 end
 
-function TC.Reply(msg)
-  print("TwitchControl: Reply " .. msg)
-end
-
 function TwitchControl.Functions.AddMaxHealth()
   AddMaxHealth(25, "Twitch")
 end
@@ -64,7 +64,7 @@ function TwitchControl.Functions.Anvil()
   TwitchControl.Functions.AntiAnvil({NumNewTraits = 2, NumRemovedTraits = 1})
 end
 
-function TwitchControl.Functions.AntiAnvil(args)
+function TwitchControl.Functions.AntiAnvil(username, args)
   args = args or {}
 	local hammerTraits = {}
 	local addedTraits = {}
@@ -104,23 +104,6 @@ function TwitchControl.Functions.AntiAnvil(args)
 	thread( TwitchControl.Threads.AntiAnvilPresentation, removedTraitNames, addedTraits )
 end
 
-function TwitchControl.Threads.AntiAnvilPresentation( traitsRemoved, traitsAdded )
-  local offsetY = -80
-  for _, traitRemoved in pairs( traitsRemoved ) do
-    CreateAnimation({ Name = "ItemGet_PomUpgraded", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
-    thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ChaosAnvilRemove_CombatText", SkipRise = false, SkipFlash = false, ShadowScale = 0.75, OffsetY = offsetY, Duration = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitRemoved }})
-    wait(0.75)
-    offsetY = offsetY - 60
-  end
-  for _, traitName in pairs( traitsAdded ) do
-    PlaySound({ Name = "/SFX/WeaponUpgradeHammerPickup", DestinationId = CurrentRun.Hero.ObjectId })
-    CreateAnimation({ Name = "ItemGet_PomUpgraded", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
-    thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ChaosAnvilAdd_CombatText", SkipRise = false, SkipFlash = false, ShadowScale = 0.75, OffsetY = offsetY, Duration = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
-    wait(0.75)
-    offsetY = offsetY - 60
-  end
-end
-
 function TwitchControl.Functions.AssistAdd()
   for i, traitData in pairs( CurrentRun.Hero.Traits ) do
     if traitData.AddAssist then
@@ -137,6 +120,12 @@ end
 
 function TwitchControl.Functions.AssistBlock()
   CurrentRun.CurrentRoom.UsedAssist = true
+end
+
+function TwitchControl.Functions.BounceDash()
+  TwitchControl.BounceDash = true
+  ModUtil.Hades.PrintOverhead("Bounce Enabled", 2)
+  thread( TwitchControl.Threads.BounceDashDisable )
 end
 
 function TwitchControl.Functions.BuildCall()
@@ -166,7 +155,7 @@ function TwitchControl.Functions.DeathDefianceRemove()
   end
 end
 
-function TwitchControl.Functions.DisableInput(input)
+function TwitchControl.Functions.DisableInput(username, input)
   if not input then
     TC.Reply('Input must be specified. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
     return
@@ -190,17 +179,7 @@ function TwitchControl.Functions.DisableInput(input)
   end
 end
 
-function TwitchControl.Threads.EnableInput(args)
-  args = args or {}
-  local input = args.input
-  local inputDesc = args.inputDesc
-  local delay = args.delaySeconds or 10
-  wait(delay)
-  ModUtil.Hades.PrintOverhead("Enabled " .. titleize(inputDesc), 2)
-  ToggleControl({Names = {input}, Enabled = true})
-end
-
-function TwitchControl.Functions.DropBoon(god)
+function TwitchControl.Functions.DropBoon(username, god)
   -- Valid gods: Aphrodite, Ares, Artemis, Athena, Chaos, Demeter, Dionysus, Hermes, Poseidon, Zeus
   godMap = {
     aphrodite = "AphroditeUpgrade",
@@ -226,7 +205,7 @@ function TwitchControl.Functions.DropBoon(god)
   end
 end
 
-function TwitchControl.Functions.DropFood(amount)
+function TwitchControl.Functions.DropFood(username, amount)
   if not amount then
     amount = 1
   end
@@ -248,7 +227,7 @@ function TwitchControl.Functions.EnemiesInvisible()
   end
 end
 
-function TwitchControl.Functions.EnemiesShields(amount)
+function TwitchControl.Functions.EnemiesShields(username, amount)
   amount = math.min(math.max(0,amount),1000)
   for id, enemy in pairs( ActiveEnemies ) do
     enemy.HealthBuffer = amount
@@ -262,7 +241,7 @@ function TwitchControl.Functions.EnemiesVisible()
   end
 end
 
-function TwitchControl.Functions.EquipKeepsake(newKeepsake)
+function TwitchControl.Functions.EquipKeepsake(username, newKeepsake)
   local keepsakeMap = {
     cerberus = "MaxHealthKeepsakeTrait",
     achilles = "DirectionalArmorTrait",
@@ -315,7 +294,7 @@ function TwitchControl.Functions.EquipKeepsake(newKeepsake)
   end
 end
 
-function TwitchControl.Functions.EquipSummon(newSummon)
+function TwitchControl.Functions.EquipSummon(username, newSummon)
   -- Valid summons: Meg, Thanatos, Sisyphus, Skelly, Dusa, Achilles
   local summonMap = {
     meg = "FuryAssistTrait",
@@ -355,7 +334,7 @@ function TwitchControl.Functions.GiveEurydiceNectar()
   AddSuperRarityBoost()
 end
 
-function TwitchControl.Functions.Money(amount)
+function TwitchControl.Functions.Money(username, amount)
   amount = tonumber(amount)
   if amount > 0 then
     -- Cap max money at 1000 per gift
@@ -369,7 +348,7 @@ function TwitchControl.Functions.Money(amount)
   end
 end
 
-function TwitchControl.Functions.Rerolls(amount)
+function TwitchControl.Functions.Rerolls(username, amount)
   amount = math.max(math.min(amount,5), -5)
   AddRerolls(amount, "Twitch", { IgnoreMetaUpgrades = true })
 end
@@ -382,7 +361,7 @@ function TwitchControl.Functions.SendSkelly()
   SkellyAssist()
 end
 
-function TwitchControl.Functions.Speed(amount)
+function TwitchControl.Functions.Speed(username, amount)
   amount = tonumber(amount)
   if amount then
     amount = math.min(math.max(amount,0.2),5)
@@ -393,31 +372,13 @@ function TwitchControl.Functions.Speed(amount)
     TC.Reply('Speed amount not a valid number. Please try again.')
   end
   TwitchControl.speed = amount
-  thread( TwitchControl.Threads.Speed )
-end
-
-function TwitchControl.Threads.Speed()
-  while TwitchControl.speed do
-    AdjustSimulationSpeed({Fraction = TwitchControl.speed, LerpTime = 0})
-    wait( 0.05 )
-    if TwitchControl.speedExpiresAt <= _worldTime then
-      break
-    end
-  end
-  AdjustSimulationSpeed({Fraction = 1, LerpTime = 0.25})
-  ModUtil.Hades.PrintOverhead("Normal Speed", 1.5)
+  thread( TwitchControl.Threads.SimulationSpeed )
 end
 
 function TwitchControl.Functions.ZagFreeze()
   FreezePlayerUnit('Twitch')
   ModUtil.Hades.PrintOverhead("Frozen", 2)
   thread( TwitchControl.Threads.ZagUnfreeze )
-end
-
-function TwitchControl.Threads.ZagUnfreeze()
-  wait( 2.0 )
-  ModUtil.Hades.PrintOverhead("Unfrozen", 2)
-  UnfreezePlayerUnit('Twitch')
 end
 
 function TwitchControl.Functions.ZagInvulnerable()
@@ -436,8 +397,73 @@ function TwitchControl.Functions.ZagVisible()
   SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 1, Duration = 0.5 })
 end
 
-function TwitchControl.Functions.Zoom(fraction)
+function TwitchControl.Functions.Zoom(username, fraction)
   AdjustZoom({Fraction = math.max(0.2,math.min(3, fraction)), LerpTime = 0.4})
+end
+
+function TwitchControl.Threads.AntiAnvilPresentation( traitsRemoved, traitsAdded )
+  local offsetY = -80
+  for _, traitRemoved in pairs( traitsRemoved ) do
+    CreateAnimation({ Name = "ItemGet_PomUpgraded", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
+    thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ChaosAnvilRemove_CombatText", SkipRise = false, SkipFlash = false, ShadowScale = 0.75, OffsetY = offsetY, Duration = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitRemoved }})
+    wait(0.75)
+    offsetY = offsetY - 60
+  end
+  for _, traitName in pairs( traitsAdded ) do
+    PlaySound({ Name = "/SFX/WeaponUpgradeHammerPickup", DestinationId = CurrentRun.Hero.ObjectId })
+    CreateAnimation({ Name = "ItemGet_PomUpgraded", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
+    thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ChaosAnvilAdd_CombatText", SkipRise = false, SkipFlash = false, ShadowScale = 0.75, OffsetY = offsetY, Duration = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+    wait(0.75)
+    offsetY = offsetY - 60
+  end
+end
+
+OnControlPressed{ "Rush",
+  function ( args )
+    thread( TwitchControl.Threads.BounceDash )
+  end
+}
+
+function TwitchControl.Threads.BounceDash()
+  if TwitchControl.BounceDash then
+    local currentAngle = GetPlayerAngle()
+    wait(0.25)
+    ApplyForce({Id = CurrentRun.Hero.ObjectId, Speed = 1750, MaxSpeed = 1750, Angle = currentAngle + 180})
+  end
+end
+
+function TwitchControl.Threads.BounceDashDisable()
+  wait(20)
+  TwitchControl.BounceDash = false
+  ModUtil.Hades.PrintOverhead("Bounce Disabled", 2)
+end
+
+function TwitchControl.Threads.EnableInput(args)
+  args = args or {}
+  local input = args.input
+  local inputDesc = args.inputDesc
+  local delay = args.delaySeconds or 10
+  wait(delay)
+  ModUtil.Hades.PrintOverhead("Enabled " .. titleize(inputDesc), 2)
+  ToggleControl({Names = {input}, Enabled = true})
+end
+
+function TwitchControl.Threads.SimulationSpeed()
+  while TwitchControl.speed do
+    AdjustSimulationSpeed({Fraction = TwitchControl.speed, LerpTime = 0})
+    wait(0.05)
+    if TwitchControl.speedExpiresAt <= _worldTime then
+      break
+    end
+  end
+  AdjustSimulationSpeed({Fraction = 1, LerpTime = 0.25})
+  ModUtil.Hades.PrintOverhead("Normal Speed", 1.5)
+end
+
+function TwitchControl.Threads.ZagUnfreeze()
+  wait( 2.0 )
+  ModUtil.Hades.PrintOverhead("Unfrozen", 2)
+  UnfreezePlayerUnit('Twitch')
 end
 
 function split(pString, pPattern)
