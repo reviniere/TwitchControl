@@ -3,7 +3,7 @@
 ## Credits
 
 <b>Author:</b> Reviniere (come say hi on [Twitch](https://twitch.tv/reviniere), especially let me know if you're going to stream with this mod, I'd love to stop by)
-<b>Lots of input from:</b> [MagicGonads](https://github.com/MagicGonads), this mod also wouldn't have been possible without all his work building StyxScribe.
+<br><b>Lots of input from:</b> [MagicGonads](https://github.com/MagicGonads), this mod also wouldn't have been possible without all his work building StyxScribe.
 
 
 ## Setup for Streamers
