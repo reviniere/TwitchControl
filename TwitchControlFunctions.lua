@@ -4,8 +4,8 @@ function TC.Functions.AddMaxHealth()
   AddMaxHealth(25, "Twitch")
 end
 
-function TC.Functions.Anvil()
-  TwitchControl.Functions.AntiAnvil({NumNewTraits = 2, NumRemovedTraits = 1})
+function TC.Functions.Anvil(username)
+  TwitchControl.Functions.AntiAnvil(username, {NumNewTraits = 2, NumRemovedTraits = 1})
 end
 
 function TC.Functions.AntiAnvil(username, args)
