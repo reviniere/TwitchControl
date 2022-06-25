@@ -383,18 +383,13 @@ end
 
 function TwitchControl.Functions.ZagInvulnerable()
   SetPlayerInvulnerable('Twitch')
+  ModUtil.Hades.PrintOverhead("Invulnerable for 10s", 2)
+  thread( TwitchControl.Threads.ZagVulnerable, 10 )
 end
 
 function TwitchControl.Functions.ZagInvisible()
   SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 0, Duration = 0.5 })
-end
-
-function TwitchControl.Functions.ZagVulnerable()
-  SetPlayerVulnerable('Twitch')
-end
-
-function TwitchControl.Functions.ZagVisible()
-  SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 1, Duration = 0.5 })
+  thread(TwitchControl.Threads.ZagVisible, 30)
 end
 
 function TwitchControl.Functions.Zoom(username, fraction)
@@ -419,12 +414,12 @@ function TwitchControl.Threads.AntiAnvilPresentation( traitsRemoved, traitsAdded
 end
 
 OnControlPressed{ "Rush",
-  function ( args )
-    thread( TwitchControl.Threads.BounceDash )
+  function (args)
+    thread(TwitchControl.Threads.Dash)
   end
 }
 
-function TwitchControl.Threads.BounceDash()
+function TwitchControl.Threads.Dash()
   if TwitchControl.BounceDash then
     local currentAngle = GetPlayerAngle()
     wait(0.25)
@@ -464,6 +459,17 @@ function TwitchControl.Threads.ZagUnfreeze()
   wait( 2.0 )
   ModUtil.Hades.PrintOverhead("Unfrozen", 2)
   UnfreezePlayerUnit('Twitch')
+end
+
+function TwitchControl.Threads.ZagVisible(delaySec)
+  wait(delaySec)
+  SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 1, Duration = 0.5 })
+end
+
+function TwitchControl.Threads.ZagVulnerable(delaySec)
+  wait(delaySec)
+  SetPlayerVulnerable('Twitch')
+  ModUtil.Hades.PrintOverhead("Vulnerable", 2)
 end
 
 function split(pString, pPattern)

@@ -72,9 +72,7 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | SendDusa | `!h SendDusa` | Encounter | Sends the Dusa summon regardless of which summon is equipped |
 | SendSkelly | `!h SendSkelly` | Encounter | Sends the Skelly summon regardless of which summon is equipped |
 | Speed | `!h Speed x` | 20 sec | Changes the game speed multiplier for 20 seconds. 1 is normal speed. Higher numbers go faster, lower goes slower.<br>e.g. `!h Speed 3` or `!h Speed 0.5` |
-| ZagFreeze | `!h ZagFreeze` | Encounter | Freezes Zag in place for 2 seconds |
-| ZagInvulnerable | `!h ZagInvulnerable` | Encounter | Makes Zag invulnerable |
-| ZagInvisible | `!h ZagInvisible` | Encounter | Makes Zag invisible |
-| ZagVulnerable | `!h ZagVulnerable` | Encounter | Makes Zag vulnerable (only has an effect if he was made invulnerable earlier in this encounter) |
-| ZagVisible | `!h ZagVisible` | Encounter | Makes Zag visible (only has an effect if he was made invisible earlier in this encounter) |
+| ZagFreeze | `!h ZagFreeze` | 2 sec | Freezes Zag in place for 2 seconds |
+| ZagInvulnerable | `!h ZagInvulnerable` | 10 sec | Makes Zag invulnerable for 10 seconds |
+| ZagInvisible | `!h ZagInvisible` | 30 sec | Makes Zag invisible for 30 seconds |
 | Zoom | `!h Zoom x` | Encounter | Changes zoom level of current room. Valid range: 0.2 to 3.0. 0.2 is way zoomed out, 3.0 is way zoomed in. 1 is default.<br>e.g. `!h Zoom 0.5` or `!h Zoom 1` or `!h Zoom 2.2` |
