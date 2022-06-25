@@ -132,7 +132,7 @@ function TwitchControl.Functions.BuildCall()
   BuildSuperMeter(CurrentRun, CurrentRun.Hero.SuperMeterLimit)
 end
 
-function TwitchControl.Functions.DeathDefianceAdd()
+function TwitchControl.Functions.DDAdd()
   local atMaxLastStands = CurrentRun.Hero.MaxLastStands == TableLength(CurrentRun.Hero.LastStands)
   AddLastStand({
     IncreaseMax = atMaxLastStands,
@@ -144,7 +144,7 @@ function TwitchControl.Functions.DeathDefianceAdd()
   UpdateLifePips()
 end
 
-function TwitchControl.Functions.DeathDefianceRemove()
+function TwitchControl.Functions.DDRemove()
   if CurrentRun.Hero.MaxLastStands > 0 then
     CurrentRun.Hero.MaxLastStands = CurrentRun.Hero.MaxLastStands - 1
   end
@@ -155,7 +155,7 @@ function TwitchControl.Functions.DeathDefianceRemove()
   end
 end
 
-function TwitchControl.Functions.DisableInput(username, input)
+function TwitchControl.Functions.Disable(username, input)
   if not input then
     TC.Reply('Input must be specified. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
     return
@@ -214,6 +214,10 @@ function TwitchControl.Functions.DropFood(username, amount)
   end
 end
 
+function TwitchControl.Functions.Dusa()
+  DusaAssist({Duration=10})
+end
+
 function TwitchControl.Functions.EnemiesHitShields()
   for id, enemy in pairs( ActiveEnemies ) do
     enemy.HitShields = enemy.MaxHitShields
@@ -225,6 +229,7 @@ function TwitchControl.Functions.EnemiesInvisible()
   for i, enemy in pairs( ActiveEnemies ) do
     SetAlpha({Id = i, Fraction = 0, Duration = 0.5})
   end
+  thread( TwitchControl.Threads.EnemiesVisible )
 end
 
 function TwitchControl.Functions.EnemiesShields(username, amount)
@@ -232,12 +237,6 @@ function TwitchControl.Functions.EnemiesShields(username, amount)
   for id, enemy in pairs( ActiveEnemies ) do
     enemy.HealthBuffer = amount
     Heal(enemy, {HealFraction=1})
-  end
-end
-
-function TwitchControl.Functions.EnemiesVisible()
-  for i, enemy in pairs( ActiveEnemies ) do
-    SetAlpha({Id = i, Fraction = 1, Duration = 0.5})
   end
 end
 
@@ -353,12 +352,52 @@ function TwitchControl.Functions.Rerolls(username, amount)
   AddRerolls(amount, "Twitch", { IgnoreMetaUpgrades = true })
 end
 
-function TwitchControl.Functions.SendDusa()
-  DusaAssist({Duration=10})
+function TwitchControl.Functions.Skelly()
+  SkellyAssist()
 end
 
-function TwitchControl.Functions.SendSkelly()
-  SkellyAssist()
+-- SpawnBoss and SpawnMiniboss functions work, but I don't want them active until I find a way to balance them more fairly.
+-- Perhaps only allowing bosses from the previous biomes, meaning in Tartarus it won't work, and in future ones it'll only bring back past bosses.
+-- Currently it could spawn a boss with far more health than the player's current build is designed to deal with, which isn't fun.
+--
+-- function TwitchControl.Functions.SpawnBoss()
+--   local bosses = { 
+--     "Charon",
+--     "Harpy", 
+--     "Harpy2", 
+--     "Harpy3", 
+--     "Minotaur",
+--     "Minotaur2", 
+--     "Theseus" 
+--   }
+--   local boss = RemoveRandomValue( bosses )
+--   local enemyData = EnemyData[boss]
+--   if enemyData then
+--     local newEnemy = DeepCopyTable( enemyData )
+--     newEnemy.ObjectId = SpawnUnit({ Name = enemyData.Name, Group = "Standing", DestinationId = CurrentRun.Hero.ObjectId, OffsetX = 0, OffsetY = 0 })
+--     SetupEnemyObject( newEnemy, CurrentRun, { SkipSpawnVoiceLines = true } )
+--     UseableOff({ Id = newEnemy.ObjectId })
+--   end
+-- end
+
+-- function TwitchControl.Functions.SpawnMiniboss()
+--   local minibosses = {
+--     "HeavyRangedForkedMiniboss",
+--     "HeavyRangedSplitterMiniboss",
+--     "MedusaShadowMiniboss",
+--     "ShieldRangedMiniBoss",
+--     "SpreadShotUnitMiniboss",
+--     "ThiefImpulseMineLayerMiniboss",
+--     "WretchAssassinMiniboss"
+--   }
+--   local miniboss = RemoveRandomValue( minibosses )
+--   local enemyData = EnemyData[miniboss]
+--   if enemyData then
+--     local newEnemy = DeepCopyTable( enemyData )
+--     newEnemy.ObjectId = SpawnUnit({ Name = enemyData.Name, Group = "Standing", DestinationId = CurrentRun.Hero.ObjectId, OffsetX = 0, OffsetY = 0 })
+--     SetupEnemyObject( newEnemy, CurrentRun, { SkipSpawnVoiceLines = true } )
+--     UseableOff({ Id = newEnemy.ObjectId })
+--   end
 end
 
 function TwitchControl.Functions.Speed(username, amount)
@@ -423,7 +462,7 @@ function TwitchControl.Threads.Dash()
   if TwitchControl.BounceDash then
     local currentAngle = GetPlayerAngle()
     wait(0.25)
-    ApplyForce({Id = CurrentRun.Hero.ObjectId, Speed = 1750, MaxSpeed = 1750, Angle = currentAngle + 180})
+    ApplyForce({Id = CurrentRun.Hero.ObjectId, Speed = 2000, MaxSpeed = 2000, Angle = currentAngle + 180})
   end
 end
 
@@ -441,6 +480,13 @@ function TwitchControl.Threads.EnableInput(args)
   wait(delay)
   ModUtil.Hades.PrintOverhead("Enabled " .. titleize(inputDesc), 2)
   ToggleControl({Names = {input}, Enabled = true})
+end
+
+function TwitchControl.Threads.EnemiesVisible()
+  wait(20)
+  for i, enemy in pairs( ActiveEnemies ) do
+    SetAlpha({Id = i, Fraction = 1, Duration = 0.5})
+  end
 end
 
 function TwitchControl.Threads.SimulationSpeed()

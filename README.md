@@ -45,32 +45,31 @@ Some commands persist until the end of the run, some will revert as soon as the 
 
 | Command | Format | Effect duration | Description |
 | --- | --- | --- | --- |
-| AddMaxHealth | `!h AddMaxHealth` | Run | Adds 25 to max health |
-| AntiAnvil | `!h AntiAnvil` | Run | Reverse of Anvil of fates (Take two hammer upgrades, add one) |
+| Add Max Health | `!h AddMaxHealth` | Run | Adds 25 to max health |
+| Anti Anvil | `!h AntiAnvil` | Run | Reverse of Anvil of fates (Take two hammer upgrades, add one) |
 | Anvil | `!h Anvil` | Run | Uses an Anvil of Fates (Take one hammer upgrade, add two) |
-| AssistAdd | `!h AssistAdd` | Run | Adds an extra assist usage |
-| AssistAllow | `!h AssistAllow` | Encounter | Permits a summon to be used again in this encounter if you have uses remaining |
-| AssistBlock | `!h AssistBlock` | Encounter | Blocks a summon being used in this encounter even if it was otherwise allowed |
-| BounceDash | `!h BounceDash` | 20 sec | Bounces the player in the opposite direction of their dash |
-| BuildCall | `!h BuildCall` | Encounter | Adds one segement to the player's call bar |
-| DeathDefianceAdd | `!h DeathDefianceAdd` | Run | Adds a death defiance and a new slot if needed |
-| DeathDefianceRemove | `!h DeathDefianceRemove` | Run | Removes a death defiance and its slot |
-| DisableInput | `!h DisableInput x` | 10 sec | Disables a specified input for 10 seconds.<br>e.g. `!h DisableInput Attack`<br>Input options:<br>* Attack<br>* Special<br>* Cast<br>* Dash<br>* Call<br>* Summon |
-| DropBoon | `!h DropBoon god` | Encounter | Drops a room reward boon of the specified god.<br>e.g. `!h DropBoon Artemis`<br>Valid gods:<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Athena<br>* Chaos<br>* Demeter<br>* Dionysus<br>* Hermes<br>* Poseidon<br>* Zeus<br> |
-| DropFood | `!h DropFood x` | Encounter | Drops x number of food items, max 6<br>e.g. `!h DropFood 1` |
-| EnemiesHitShields | `!h EnemiesHitShields` | Encounter | Adds max hit shields to all active enemies, and heals them to full health |
-| EnemiesInvisible | `!h EnemiesInvisible` | Encounter | Makes all active enemies invisible |
-| EnemiesShields | `!h EnemiesShields x` | Encounter | Adds x amount of shield to all active enemies. Max 1000<br>e.g. `!h EnemiesShields 200` |
-| EnemiesVisible | `!h EnemiesVisible` | Encounter | Makes all active enemies visible |
-| EquipKeepsake | `!h EquipKeepsake gifter` | Run | Change the currently equipped keepsake<br>e.g. `!h EquipKeepsake Nyx`<br>Valid gifters you can equip keepsakes from (in order of display in game):<br>* Cerberus<br>* Achilles<br>* Nyx<br>* Thanatos<br>* Charon<br>* Hypnos<br>* Meg<br>* Orpheus<br>* Dusa<br>* Skelly<br>* Zeus<br>* Poseidon<br>* Athena<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Dionysus<br>* Hermes<br>* Demeter<br>* Chaos<br>* Sisyphus<br>* Eurydice<br>* Patroclus<br>* Persephone<br>* Hades |
-| EquipSummon | `!h EquipSummon gifter` | Run | Change the currently equipped summon<br>e.g. `!h EquipSummon Skelly`<br>Valid gifters you can equip summons from (in order of display in game):<br>* Meg<br>* Thanatos<br>* Sisyphus<br>* Skelly<br>* Dusa<br>* Achilles |
+| Assist Add | `!h AssistAdd` | Run | Adds an extra assist usage |
+| Assist Allow | `!h AssistAllow` | Encounter | Permits a summon to be used again in this encounter if you have uses remaining |
+| Assist Block | `!h AssistBlock` | Encounter | Blocks a summon being used in this encounter even if it was otherwise allowed |
+| Bounce Dash | `!h BounceDash` | 20 sec | Bounces the player in the opposite direction of their dash |
+| Build Call | `!h BuildCall` | Encounter | Adds one segement to the player's call bar |
+| Death Defiance Add | `!h DDAdd` | Run | Adds a death defiance and a new slot if needed |
+| Death Defiance Remove | `!h DDRemove` | Run | Removes a death defiance and its slot |
+| Disable Input | `!h Disable x` | 10 sec | Disables a specified input for 10 seconds.<br>e.g. `!h DisableInput Attack`<br>Input options:<br>* Attack<br>* Special<br>* Cast<br>* Dash<br>* Call<br>* Summon |
+| Drop Boon | `!h DropBoon god` | Encounter | Drops a room reward boon of the specified god.<br>e.g. `!h DropBoon Artemis`<br>Valid gods:<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Athena<br>* Chaos<br>* Demeter<br>* Dionysus<br>* Hermes<br>* Poseidon<br>* Zeus<br> |
+| Drop Food | `!h DropFood x` | Encounter | Drops x number of food items, max 6<br>e.g. `!h DropFood 1` |
+| Enemies Hit Shields | `!h EnemiesHitShields` | Encounter | Adds max hit shields to all active enemies, and heals them to full health |
+| Enemies Invisible | `!h EnemiesInvisible` | Encounter | Makes all active enemies invisible |
+| Enemies Shields | `!h EnemiesShields x` | Encounter | Adds x amount of shield to all active enemies. Max 1000<br>e.g. `!h EnemiesShields 200` |
+| Equip Keepsake | `!h EquipKeepsake gifter` | Run | Change the currently equipped keepsake<br>e.g. `!h EquipKeepsake Nyx`<br>Valid gifters you can equip keepsakes from (in order of display in game):<br>* Cerberus<br>* Achilles<br>* Nyx<br>* Thanatos<br>* Charon<br>* Hypnos<br>* Meg<br>* Orpheus<br>* Dusa<br>* Skelly<br>* Zeus<br>* Poseidon<br>* Athena<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Dionysus<br>* Hermes<br>* Demeter<br>* Chaos<br>* Sisyphus<br>* Eurydice<br>* Patroclus<br>* Persephone<br>* Hades |
+| Equip Summon | `!h EquipSummon gifter` | Run | Change the currently equipped summon<br>e.g. `!h EquipSummon Skelly`<br>Valid gifters you can equip summons from (in order of display in game):<br>* Meg<br>* Thanatos<br>* Sisyphus<br>* Skelly<br>* Dusa<br>* Achilles |
+| Eurydice Nectar | `!h EurydiceNectar` | Run | Gives the player the Eurydice powerup Refreshing Nectar (the next 3 Boons you find have upgraded Rarity) |
 | Flashbang | `!h Flashbang` | Encounter | Turns the screen white instantly then fades back to normal over 5 seconds |
-| FocusIntensifies | `!h FocusIntensifies` | Encounter | Plays the screen effects and audio from the Cerberus summon |
-| GiveEurydiceNectar | `!h GiveEurydiceNectar` | Run | Gives the player the Eurydice powerup Refreshing Nectar (the next 3 Boons you find have upgraded Rarity) |
+| Focus Intensifies | `!h FocusIntensifies` | Encounter | Plays the screen effects and audio from the Cerberus summon |
 | Money | `!h Money x` | Run | Gives or takes money from the player. Max gift: 1000. Max take: All of it<br>e.g. `!h Money 100` or `!h Money -100` |
 | Rerolls | `!h Rerolls` | Run | Gives or takes rerolls to the player. Range: 5 to -5<br>e.g. `!h Rerolls 1` or `!h Rerolls -1` |
-| SendDusa | `!h SendDusa` | Encounter | Sends the Dusa summon regardless of which summon is equipped |
-| SendSkelly | `!h SendSkelly` | Encounter | Sends the Skelly summon regardless of which summon is equipped |
+| Send Dusa Summon | `!h Dusa` | Encounter | Sends the Dusa summon regardless of which summon is equipped |
+| Send Skelly Summon | `!h Skelly` | Encounter | Sends the Skelly summon regardless of which summon is equipped |
 | Speed | `!h Speed x` | 20 sec | Changes the game speed multiplier for 20 seconds. 1 is normal speed. Higher numbers go faster, lower goes slower.<br>e.g. `!h Speed 3` or `!h Speed 0.5` |
 | ZagFreeze | `!h ZagFreeze` | 2 sec | Freezes Zag in place for 2 seconds |
 | ZagInvulnerable | `!h ZagInvulnerable` | 10 sec | Makes Zag invulnerable for 10 seconds |
