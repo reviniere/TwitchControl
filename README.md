@@ -4,6 +4,7 @@
 
 <b>Author:</b> Reviniere (come say hi on [Twitch](https://twitch.tv/reviniere), especially let me know if you're going to stream with this mod, I'd love to stop by)
 <br><b>Lots of input from:</b> [MagicGonads](https://github.com/MagicGonads), this mod also wouldn't have been possible without all his work building StyxScribe.
+<br><b>Weapon data:</b> [CGull's RunStartControl](https://github.com/cgu11/RunStartControl)
 
 
 ## Setup for Streamers
@@ -63,6 +64,7 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | Enemies Shields | `!h EnemiesShields x` | Encounter | Adds x amount of shield to all active enemies. Max 1000<br>e.g. `!h EnemiesShields 200` |
 | Equip Keepsake | `!h EquipKeepsake gifter` | Run | Change the currently equipped keepsake<br>e.g. `!h EquipKeepsake Nyx`<br>Valid gifters you can equip keepsakes from (in order of display in game):<br>* Cerberus<br>* Achilles<br>* Nyx<br>* Thanatos<br>* Charon<br>* Hypnos<br>* Meg<br>* Orpheus<br>* Dusa<br>* Skelly<br>* Zeus<br>* Poseidon<br>* Athena<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Dionysus<br>* Hermes<br>* Demeter<br>* Chaos<br>* Sisyphus<br>* Eurydice<br>* Patroclus<br>* Persephone<br>* Hades |
 | Equip Summon | `!h EquipSummon gifter` | Run | Change the currently equipped summon<br>e.g. `!h EquipSummon Skelly`<br>Valid gifters you can equip summons from (in order of display in game):<br>* Meg<br>* Thanatos<br>* Sisyphus<br>* Skelly<br>* Dusa<br>* Achilles |
+| Equip Weapon | `!h EquipWeapon weapon` | Run | Change the currently equipped weapon<br>e.g. `!h EquipWeapon ErisRail` or `!h EquipWeapon BeoShield`<br>Valid weapons to equip:<br>* ZagSword<br>* NemSword<br>* PosiSword<br>* ArthSword<br>* ZagSpear<br>* AchSpear<br>* HadesSpear<br>* GySpear<br>* ZagShield<br>* ChaosShield<br>* ZeusShield<br>* BeoShield<br>* ZagBow<br>* ChiBow<br>* HeraBow<br>* RamaBow<br>* ZagFist<br>* TalosFist<br>* DemFist<br>* GilgaFist<br>* ZagRail<br>* ErisRail<br>* HestiaRail<br>* LuciRail |
 | Eurydice Nectar | `!h EurydiceNectar` | Run | Gives the player the Eurydice powerup Refreshing Nectar (the next 3 Boons you find have upgraded Rarity) |
 | Flashbang | `!h Flashbang` | Encounter | Turns the screen white instantly then fades back to normal over 5 seconds |
 | Focus Intensifies | `!h FocusIntensifies` | Encounter | Plays the screen effects and audio from the Cerberus summon |
