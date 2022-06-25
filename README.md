@@ -55,7 +55,7 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | BuildCall | `!h BuildCall` | Encounter | Adds one segement to the player's call bar |
 | DeathDefianceAdd | `!h DeathDefianceAdd` | Run | Adds a death defiance and a new slot if needed |
 | DeathDefianceRemove | `!h DeathDefianceRemove` | Run | Removes a death defiance and its slot |
-| DisableInput | `!h DisableInput x` | 10 sec | Disables a specified input for 10 seconds.<br>e.g. `!h DisableInput Attack`<br>Input options:<br>* Attack,<br>* Special,<br>* Cast,<br>* Dash,<br>* Call,<br>* Summon |
+| DisableInput | `!h DisableInput x` | 10 sec | Disables a specified input for 10 seconds.<br>e.g. `!h DisableInput Attack`<br>Input options:<br>* Attack<br>* Special<br>* Cast<br>* Dash<br>* Call<br>* Summon |
 | DropBoon | `!h DropBoon god` | Encounter | Drops a room reward boon of the specified god.<br>e.g. `!h DropBoon Artemis`<br>Valid gods:<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Athena<br>* Chaos<br>* Demeter<br>* Dionysus<br>* Hermes<br>* Poseidon<br>* Zeus<br> |
 | DropFood | `!h DropFood x` | Encounter | Drops x number of food items, max 6<br>e.g. `!h DropFood 1` |
 | EnemiesHitShields | `!h EnemiesHitShields` | Encounter | Adds max hit shields to all active enemies, and heals them to full health |
