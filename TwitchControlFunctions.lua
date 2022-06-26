@@ -261,6 +261,48 @@ function TC.Functions.Money(username, amount)
   end
 end
 
+function TC.Functions.PactDown(username, pact)
+  adjustPact = TC.PactMap[string.lower(pact)]
+  if adjustPact then
+    currentPact = GameState.MetaUpgrades[adjustPact.Name]
+    if currentPact > 0 then
+      GameState.MetaUpgrades[adjustPact.Name] = GameState.MetaUpgrades[adjustPact.Name] - 1
+      BuildMetaupgradeCache()
+      GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
+      UpdateActiveShrinePoints()
+    else
+      TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' is already at 0.')
+    end
+  else
+    validPacts = {}
+    for pactCondition,pactOptions in pairs(TC.PactMap) do
+      table.insert(validPacts, TC.titleize(pactCondition))
+    end
+    TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' not valid. Valid options: ' .. table.concat(validPacts, ', '))
+  end
+end
+
+function TC.Functions.PactUp(username, pact)
+  adjustPact = TC.PactMap[string.lower(pact)]
+  if adjustPact then
+    currentPact = GameState.MetaUpgrades[adjustPact.Name]
+    if currentPact < adjustPact.Max then
+      GameState.MetaUpgrades[adjustPact.Name] = GameState.MetaUpgrades[adjustPact.Name] + 1
+      BuildMetaupgradeCache()
+      GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
+      UpdateActiveShrinePoints()
+    else
+      TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' is already at max.')
+    end
+  else
+    validPacts = {}
+    for pactCondition,pactOptions in pairs(TC.PactMap) do
+      table.insert(validPacts, TC.titleize(pactCondition))
+    end
+    TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' not valid. Valid options: ' .. table.concat(validPacts, ', '))
+  end
+end
+
 function TC.Functions.Rerolls(username, amount)
   amount = math.max(math.min(amount,5), -5)
   AddRerolls(amount, "Twitch", { IgnoreMetaUpgrades = true })

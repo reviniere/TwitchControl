@@ -77,6 +77,24 @@ TC.KeepsakeMap = {
   hades = "HadesShoutKeepsake"
 }
 
+TC.PactMap = {
+  hardlabor = {Name = 'EnemyDamageShrineUpgrade', Max = 5}, 
+  lastingconsequences = {Name = 'HealingReductionShrineUpgrade', Max = 4},
+  conveniencefee = {Name = 'ShopPricesShrineUpgrade', Max = 2}, 
+  jurysummons = {Name = 'EnemyCountShrineUpgrade', Max = 3},
+  extrememeasures = {Name = 'BossDifficultyShrineUpgrade', Max = 4},
+  calisthenics = {Name = 'EnemyHealthShrineUpgrade', Max = 2},
+  benefitspackage = {Name = 'EnemyEliteShrineUpgrade', Max = 2},
+  middlemanagement = {Name = 'MinibossCountShrineUpgrade', Max = 2},
+  underworldcustoms = {Name = 'ForceSellShrineUpgrade', Max = 1},
+  forcedovertime = {Name = 'EnemySpeedShrineUpgrade', Max = 2},
+  heightenedsecurity = {Name = 'TrapDamageShrineUpgrade', Max = 1},
+  routineinspection = {Name = 'MetaUpgradeStrikeThroughShrineUpgrade', Max = 2},
+  damagecontrol = {Name = 'EnemyShieldShrineUpgrade', Max = 1},
+  approvalprocess = {Name = 'ReducedLootChoicesShrineUpgrade', Max = 2},
+  tightdeadline = {Name = 'BiomeSpeedShrineUpgrade', Max = 3}
+}
+
 TC.SummonMap = {
   meg = "FuryAssistTrait",
   thanatos = "ThanatosAssistTrait",

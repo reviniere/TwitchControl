@@ -69,6 +69,8 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | Flashbang | `!h Flashbang` | Encounter | Turns the screen white instantly then fades back to normal over 5 seconds |
 | Focus Intensifies | `!h FocusIntensifies` | Encounter | Plays the screen effects and audio from the Cerberus summon |
 | Money | `!h Money x` | Run | Gives or takes money from the player. Max gift: 1000. Max take: All of it<br>e.g. `!h Money 100` or `!h Money -100` |
+| Pact Down | `!h PactDown pact` | Run | Adjusts a Pact of Punishment condition down a level<br>e.g. `!h PactDown Extrememeasures`<br>Valid pact conditions:<br>* Hardlabor<br>* Lastingconsequences<br>* Conveniencefee<br>* Jurysummons<br>* Extrememeasures<br>* Calisthenics<br>* Benefitspackage<br>* Middlemanagement<br>* Underworldcustoms<br>* Forcedovertime<br>* Heightenedsecurity<br>* Routineinspection<br>* Damagecontrol<br>* Approvalprocess<br>* Tightdeadline |
+| Pact Up | `!h PactUp pact` | Run | Adjusts a Pact of Punishment condition up a level<br>e.g. `!h PactUp Forcedovertime`<br>For valid options, see <i>Pact Down</i> |
 | Rerolls | `!h Rerolls` | Run | Gives or takes rerolls to the player. Range: 5 to -5<br>e.g. `!h Rerolls 1` or `!h Rerolls -1` |
 | Send Dusa Summon | `!h Dusa` | Encounter | Sends the Dusa summon regardless of which summon is equipped |
 | Send Skelly Summon | `!h Skelly` | Encounter | Sends the Skelly summon regardless of which summon is equipped |
