@@ -71,6 +71,9 @@ function TC.Functions.BounceDash()
   ModUtil.Hades.PrintOverhead("Bounce Enabled", 2)
   thread( TwitchControl.Threads.BounceDashDisable )
 end
+function TC.Functions.DashBounce()
+  TC.Functions.BounceDash()
+end
 
 function TC.Functions.BuildCall()
   BuildSuperMeter(CurrentRun, CurrentRun.Hero.SuperMeterLimit)
@@ -87,6 +90,9 @@ function TC.Functions.DDAdd()
   })
   UpdateLifePips()
 end
+function TC.Functions.DDUp()
+  TC.Functions.DDAdd()
+end
 
 function TC.Functions.DDRemove()
   if CurrentRun.Hero.MaxLastStands > 0 then
@@ -97,6 +103,9 @@ function TC.Functions.DDRemove()
     RemoveLastStand()
     UpdateLifePips()
   end
+end
+function TC.Functions.DDDown()
+  TC.Functions.DDRemove()
 end
 
 function TC.Functions.Disable(username, input)
@@ -136,6 +145,9 @@ function TC.Functions.DropBoon(username, god)
     TC.Reply('@' .. username .. ' God ' .. god .. ' not valid. Valid options: ' .. table.concat(validGods, ', '))
   end
 end
+function TC.Functions.Boon(username, god)
+  TC.Functions.DropBoon(username, god)
+end
 
 function TC.Functions.DropFood(username, amount)
   if not amount then
@@ -144,6 +156,9 @@ function TC.Functions.DropFood(username, amount)
   for i=0,math.min(math.max(amount-1,0), 6) do 
     DropHealth( "HealDropRange", CurrentRun.Hero.ObjectId, 300, random()*6, true ) 
   end
+end
+function TC.Functions.Food(username, amount)
+  TC.Functions.DropFood(username, amount)
 end
 
 function TC.Functions.Dusa()
@@ -170,6 +185,9 @@ function TC.Functions.EnemiesShields(username, amount)
     enemy.HealthBuffer = amount
     Heal(enemy, {HealFraction=1})
   end
+end
+function TC.Functions.EnemyShields(username, amount)
+  TC.Functions.EnemiesShields(username, amount)
 end
 
 function TC.Functions.EquipKeepsake(username, newKeepsake)
@@ -198,6 +216,9 @@ function TC.Functions.EquipKeepsake(username, newKeepsake)
     TC.Reply('@' .. username .. ' Keepsake ' .. TC.titleize(newKeepsake) .. ' not valid. Valid options: ' .. table.concat(validGifters, ', '))
   end
 end
+function TC.Functions.Keepsake(username, newKeepsake)
+  TC.Functions.EquipKeepsake(username, newKeepsake)
+end
 
 function TC.Functions.EquipSummon(username, newSummon)
   -- Valid summons: Meg, Thanatos, Sisyphus, Skelly, Dusa, Achilles
@@ -217,6 +238,9 @@ function TC.Functions.EquipSummon(username, newSummon)
     TC.Reply('@' .. username .. ' Summon ' .. TC.titleize(newSummon) .. ' not valid. Valid options: ' .. table.concat(validSummons, ', '))
   end
 end
+function TC.Functions.Summon(username, newSummon)
+  TC.Functions.EquipSummon(username, newSummon)
+end
 
 function TC.Functions.EquipWeapon(username, newWeapon)
   local currentWeapon = TC.GetEquippedWeaponAspect()
@@ -233,6 +257,9 @@ function TC.Functions.EquipWeapon(username, newWeapon)
     TC.Reply('@' .. username .. ' Weapon ' .. TC.titleize(newWeapon) .. ' not valid. Valid options: ' .. table.concat(validWeapons, ', '))
   end
 end
+function TC.Functions.Weapon(username, newWeapon)
+  TC.Functions.EquipWeapon(username, newWeapon)
+end
 
 function TC.Functions.Flashbang()
   FadeOut({Color = Color.White, Duration = 0})
@@ -243,7 +270,7 @@ function TC.Functions.FocusIntensifies()
   DoCerberusAssistPresentation()
 end
 
-function TC.Functions.GiveEurydiceNectar()
+function TC.Functions.EurydiceNectar()
   AddSuperRarityBoost()
 end
 
@@ -306,6 +333,9 @@ end
 function TC.Functions.Rerolls(username, amount)
   amount = math.max(math.min(amount,5), -5)
   AddRerolls(amount, "Twitch", { IgnoreMetaUpgrades = true })
+end
+function TC.Functions.Reroll(username, amount)
+  TC.Functions.Rerolls(username, amount)
 end
 
 function TC.Functions.Skelly()
