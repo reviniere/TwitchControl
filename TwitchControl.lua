@@ -12,12 +12,10 @@ ModUtil.Table.Merge( ModUtil.Hades, {
 	PrintStackHeight = 2
 } )
 
-StyxScribe.AddHook(TwitchControl.Send, "TwitchControl: ", TwitchControl)
-
 function TC.Send(message)
   ModUtil.DebugPrint('Message received: ' .. message)
   message = string.sub(message, 1, 60) -- Limit max length of messages to avoid people spamming things
-  msg = TC.Helpers.split(message, ' ')
+  msg = TC.split(message, ' ')
   username = table.remove(msg, 1)
   sentCommand = table.remove(msg, 1)
   sentFunction = ""
@@ -58,3 +56,5 @@ end
 function TC.Reply(msg)
   print("TwitchControl: Reply " .. msg)
 end
+
+StyxScribe.AddHook(TC.Send, "TwitchControl: ", TwitchControl)
