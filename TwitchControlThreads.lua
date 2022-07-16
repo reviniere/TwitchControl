@@ -32,7 +32,7 @@ function TC.Threads.Dash()
 end
 
 function TC.Threads.BounceDashDisable()
-  wait(20)
+  wait(TwitchControl.Config.FunctionTimers.BounceDash)
   TwitchControl.BounceDash = false
   ModUtil.Hades.PrintOverhead("Bounce Disabled", 2)
 end
@@ -48,7 +48,7 @@ function TC.Threads.EnableInput(args)
 end
 
 function TC.Threads.EnemiesVisible()
-  wait(20)
+  wait(TwitchControl.Config.FunctionTimers.EnemiesInvisible)
   for i, enemy in pairs( ActiveEnemies ) do
     SetAlpha({Id = i, Fraction = 1, Duration = 0.5})
   end
@@ -67,18 +67,18 @@ function TC.Threads.SimulationSpeed()
 end
 
 function TC.Threads.ZagUnfreeze()
-  wait( 2.0 )
+  wait( TwitchControl.Config.FunctionTimers.ZagFreeze )
   ModUtil.Hades.PrintOverhead("Unfrozen", 2)
   UnfreezePlayerUnit('Twitch')
 end
 
-function TC.Threads.ZagVisible(delaySec)
-  wait(delaySec)
+function TC.Threads.ZagVisible()
+  wait(TwitchControl.Config.FunctionTimers.ZagInvisible)
   SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 1, Duration = 0.5 })
 end
 
-function TC.Threads.ZagVulnerable(delaySec)
-  wait(delaySec)
+function TC.Threads.ZagVulnerable()
+  wait(TwitchControl.Config.FunctionTimers.ZagInvulnerable)
   SetPlayerVulnerable('Twitch')
   ModUtil.Hades.PrintOverhead("Vulnerable", 2)
 end

@@ -42,7 +42,7 @@ class Bot(commands.Bot):
   async def h(self, ctx: commands.Context):
     await self.hades(ctx)
 
-def load():
+def Load():
   bot = Bot()
   th = threading.Thread(target=bot.run)
   th.start()

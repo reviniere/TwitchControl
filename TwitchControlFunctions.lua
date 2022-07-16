@@ -108,29 +108,33 @@ function TC.Functions.DDDown()
   TC.Functions.DDRemove()
 end
 
-function TC.Functions.Disable(username, input)
-  if not input then
-    TC.Reply('Input must be specified. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
-    return
-  end
-  inputMap = {
-    attack = 'Attack2',
-    special = 'Attack3',
-    cast = 'Attack1',
-    dash = 'Rush',
-    call = 'Shout',
-    summon = 'Assist'
-  }
-  local disableInput = inputMap[string.lower(input)]
-  local delaySec = 10
-  if disableInput then
-    ModUtil.Hades.PrintOverhead("Disabled " .. TC.titleize(input), 2)
-    ToggleControl({Names = {disableInput}, Enabled = false})
-    thread(TwitchControl.Threads.EnableInput, {input = disableInput, inputDesc = input, delaySeconds = delaySec})
-  else
-    TC.Reply('@' .. username .. ' Input type not found. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
-  end
-end
+
+-- Removed Disable Input until investigated for bugfix, it seems to cause a crash a few seconds after it's called. Possibly something to do with the enable thread?
+-- | Disable Input | `!h Disable x` | 10 sec | Disables a specified input for 10 seconds.<br>e.g. `!h DisableInput Attack`<br>Input options:<br>* Attack<br>* Special<br>* Cast<br>* Dash<br>* Call<br>* Summon |
+--
+-- function TC.Functions.Disable(username, input)
+--   if not input then
+--     TC.Reply('Input must be specified. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
+--     return
+--   end
+--   inputMap = {
+--     attack = 'Attack2',
+--     special = 'Attack3',
+--     cast = 'Attack1',
+--     dash = 'Rush',
+--     call = 'Shout',
+--     summon = 'Assist'
+--   }
+--   local disableInput = inputMap[string.lower(input)]
+--   local delaySec = 10
+--   if disableInput then
+--     ModUtil.Hades.PrintOverhead("Disabled " .. TC.titleize(input), 2)
+--     ToggleControl({Names = {disableInput}, Enabled = false})
+--     thread(TwitchControl.Threads.EnableInput, {input = disableInput, inputDesc = input, delaySeconds = delaySec})
+--   else
+--     TC.Reply('@' .. username .. ' Input type not found. Valid inputs: Attack, Special, Cast, Dash, Call, Summon')
+--   end
+-- end
 
 function TC.Functions.DropBoon(username, god)
   -- Valid gods: Aphrodite, Ares, Artemis, Athena, Chaos, Demeter, Dionysus, Hermes, Poseidon, Zeus
@@ -389,10 +393,9 @@ end
 function TC.Functions.Speed(username, amount)
   amount = tonumber(amount)
   if amount then
-    amount = math.min(math.max(amount,0.2),5)
-    local speedLastsForRealSeconds = 20
+    amount = math.min(math.max(amount,0.5),3)
     ModUtil.Hades.PrintOverhead("Speed Change", 1.5*amount)
-    TwitchControl.speedExpiresAt = _worldTime + (speedLastsForRealSeconds*amount)
+    TwitchControl.speedExpiresAt = _worldTime + (TwitchControl.Config.FunctionTimers.Speed*amount)
   else
     TC.Reply('@' .. username .. ' Speed amount not a valid number. Please try again.')
   end
@@ -409,12 +412,12 @@ end
 function TC.Functions.ZagInvulnerable()
   SetPlayerInvulnerable('Twitch')
   ModUtil.Hades.PrintOverhead("Invulnerable for 10s", 2)
-  thread( TwitchControl.Threads.ZagVulnerable, 10 )
+  thread( TwitchControl.Threads.ZagVulnerable )
 end
 
 function TC.Functions.ZagInvisible()
   SetAlpha({ Id = CurrentRun.Hero.ObjectId, Fraction = 0, Duration = 0.5 })
-  thread(TwitchControl.Threads.ZagVisible, 30)
+  thread(TwitchControl.Threads.ZagVisible )
 end
 
 function TC.Functions.Zoom(username, fraction)

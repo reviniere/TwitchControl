@@ -2,6 +2,7 @@ Import "TwitchControl.lua"
 Import "TwitchControlFunctions.lua"
 Import "TwitchControlThreads.lua"
 Import "TwitchControlHelpers.lua"
+Import "TwitchControlConfig.lua"
 
 To "StyxScribeScripts/TwitchControl.py"
 Replace "TwitchControl.py"

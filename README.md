@@ -25,6 +25,10 @@ These steps assume you've already set up modimporter and have ModUtil.
 2) Update your bot's username, your Twitch channel, and the OAuth token in **TwitchControlConfig.json**
 3) Run `modimporter.exe` after updating your OAuth token and setting your Twitch username.
 
+### Cooldown timer configuration changes
+1) Update the cooldown timers listed in the TwitchControlConfig.lua file.
+2) Run `modimporter.exe` again after making configuration changes to apply them.
+
 ### How to use
 Once you have met the prerequisites and completed the setup steps, you must run Hades using the SubsumeHades.py file added during the StyxScribe installation.
 
@@ -42,6 +46,11 @@ Commands are not case sensitive.
 
 Some commands persist until the end of the run, some will revert as soon as the player leaves the current chamber.
 
+### Cooldown timers
+
+There are cooldown timers per user and per command which are configurable by the streamer.
+To see the default values, check [TwitchControlConfig.lua](TwitchControlConfig.lua)
+
 ### Commands
 
 | Command | Format | Effect duration | Description |
@@ -52,15 +61,14 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | Assist Add | `!h AssistAdd` | Run | Adds an extra assist usage |
 | Assist Allow | `!h AssistAllow` | Encounter | Permits a summon to be used again in this encounter if you have uses remaining |
 | Assist Block | `!h AssistBlock` | Encounter | Blocks a summon being used in this encounter even if it was otherwise allowed |
-| Bounce Dash | `!h BounceDash` | 20 sec | Bounces the player in the opposite direction of their dash |
+| Bounce Dash | `!h BounceDash` | 60 sec<br>*Streamer*<br>*Configurable* | Bounces the player in the opposite direction of their dash |
 | Build Call | `!h BuildCall` | Encounter | Adds one segement to the player's call bar |
 | Death Defiance Add | `!h DDAdd` | Run | Adds a death defiance and a new slot if needed |
 | Death Defiance Remove | `!h DDRemove` | Run | Removes a death defiance and its slot |
-| Disable Input | `!h Disable x` | 10 sec | Disables a specified input for 10 seconds.<br>e.g. `!h DisableInput Attack`<br>Input options:<br>* Attack<br>* Special<br>* Cast<br>* Dash<br>* Call<br>* Summon |
 | Drop Boon | `!h DropBoon god` | Encounter | Drops a room reward boon of the specified god.<br>e.g. `!h DropBoon Artemis`<br>Valid gods:<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Athena<br>* Chaos<br>* Demeter<br>* Dionysus<br>* Hermes<br>* Poseidon<br>* Zeus<br> |
 | Drop Food | `!h DropFood x` | Encounter | Drops x number of food items, max 6<br>e.g. `!h DropFood 1` |
 | Enemies Hit Shields | `!h EnemiesHitShields` | Encounter | Adds max hit shields to all active enemies, and heals them to full health |
-| Enemies Invisible | `!h EnemiesInvisible` | Encounter | Makes all active enemies invisible |
+| Enemies Invisible | `!h EnemiesInvisible` | 30 sec<br>*Streamer*<br>*Configurable* | Makes all active enemies invisible |
 | Enemies Shields | `!h EnemiesShields x` | Encounter | Adds x amount of shield to all active enemies. Max 1000<br>e.g. `!h EnemiesShields 200` |
 | Equip Keepsake | `!h EquipKeepsake gifter` | Run | Change the currently equipped keepsake<br>e.g. `!h EquipKeepsake Nyx`<br>Valid gifters you can equip keepsakes from (in order of display in game):<br>* Cerberus<br>* Achilles<br>* Nyx<br>* Thanatos<br>* Charon<br>* Hypnos<br>* Meg<br>* Orpheus<br>* Dusa<br>* Skelly<br>* Zeus<br>* Poseidon<br>* Athena<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Dionysus<br>* Hermes<br>* Demeter<br>* Chaos<br>* Sisyphus<br>* Eurydice<br>* Patroclus<br>* Persephone<br>* Hades |
 | Equip Summon | `!h EquipSummon gifter` | Run | Change the currently equipped summon<br>e.g. `!h EquipSummon Skelly`<br>Valid gifters you can equip summons from (in order of display in game):<br>* Meg<br>* Thanatos<br>* Sisyphus<br>* Skelly<br>* Dusa<br>* Achilles |
@@ -74,8 +82,8 @@ Some commands persist until the end of the run, some will revert as soon as the 
 | Rerolls | `!h Rerolls` | Run | Gives or takes rerolls to the player. Range: 5 to -5<br>e.g. `!h Rerolls 1` or `!h Rerolls -1` |
 | Send Dusa Summon | `!h Dusa` | Encounter | Sends the Dusa summon regardless of which summon is equipped |
 | Send Skelly Summon | `!h Skelly` | Encounter | Sends the Skelly summon regardless of which summon is equipped |
-| Speed | `!h Speed x` | 20 sec | Changes the game speed multiplier for 20 seconds. 1 is normal speed. Higher numbers go faster, lower goes slower.<br>e.g. `!h Speed 3` or `!h Speed 0.5` |
-| ZagFreeze | `!h ZagFreeze` | 2 sec | Freezes Zag in place for 2 seconds |
-| ZagInvulnerable | `!h ZagInvulnerable` | 10 sec | Makes Zag invulnerable for 10 seconds |
-| ZagInvisible | `!h ZagInvisible` | 30 sec | Makes Zag invisible for 30 seconds |
+| Speed | `!h Speed x` | 20 sec<br>*Streamer*<br>*Configurable* | Changes the game speed multiplier for 20 seconds. 1 is normal speed. Higher numbers go faster, lower goes slower. Range: 0.5 to 3<br>e.g. `!h Speed 3` or `!h Speed 0.5` |
+| ZagFreeze | `!h ZagFreeze` | 2 sec<br>*Streamer*<br>*Configurable* | Freezes Zag in place for 2 seconds |
+| ZagInvulnerable | `!h ZagInvulnerable` | 10 sec<br>*Streamer*<br>*Configurable* | Makes Zag invulnerable for 10 seconds |
+| ZagInvisible | `!h ZagInvisible` | 30 sec<br>*Streamer*<br>*Configurable* | Makes Zag invisible for 30 seconds |
 | Zoom | `!h Zoom x` | Encounter | Changes zoom level of current room. Valid range: 0.2 to 3.0. 0.2 is way zoomed out, 3.0 is way zoomed in. 1 is default.<br>e.g. `!h Zoom 0.5` or `!h Zoom 1` or `!h Zoom 2.2` |
