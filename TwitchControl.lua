@@ -44,20 +44,16 @@ function TC.Send(message)
   if validCommand then
     -- Check if user is allowed to trigger commands per cooldown timer
     local userCooldownTimer = TC.Cooldowns.Users[username]
-    print('Cooldown timer ' .. tostring(userCooldownTimer))
     if userCooldownTimer then
       local userCooldownRemaining = math.ceil(userCooldownTimer - _worldTime)
-      print('Time remaining ' .. tostring(userCooldownRemaining))
       if userCooldownRemaining > 0 then
         local plural = 's'
         if userCooldownRemaining == 1 then
           plural = ''
         end
-        print('Replying with remaining time to ' .. username)
         TC.Reply('@' .. username .. ' You can send another command in ' .. userCooldownRemaining .. ' second' .. plural)
         return
       else
-        print('Removing cooldown timer entry for  ' .. username)
         TC.Cooldowns.Users[username] = nil
       end
     end
@@ -91,7 +87,6 @@ function TC.Send(message)
       ModUtil.Hades.PrintStack(logLine)
     end
   else
-    print("Debug:: TwitchControl: Reply @" .. username .. " the command '" .. sentCommand .. "'was not found, please try again.")
     TC.Reply("@" .. username .. " the command '" .. sentCommand .. "' was not found, please try again.")
     return
   end
