@@ -31,7 +31,8 @@ These steps assume you've already set up modimporter and have ModUtil.
 ### Setup steps
 1) Get a [Twitch Chat OAuth token](https://twitchapps.com/tmi/)
 2) Update your bot's username, your Twitch channel, and the OAuth token in **TwitchControlConfig.json**
-3) Run `modimporter.exe` after updating your OAuth token and setting your Twitch username.
+3) Place a copy of all the mod files in this repository in folder: Hades/Content/Mods/TwitchControl
+4) Run `modimporter.exe` after updating your OAuth token and setting your Twitch username.
 
 ### Cooldown timer configuration changes
 1) Update the cooldown timers listed in the TwitchControlConfig.lua file.
