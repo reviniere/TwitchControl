@@ -1,5 +1,11 @@
 # Twitch Control for Hades
 
+* Twitch viewers can send commands in chat which will update the game state live
+* Your Twitch bot can respond with helpful error messages
+* Includes built-in configurable per-user and per-command cooldown timers
+
+**For viewers looking for the list of available commands, scroll to the bottom of this page.**
+
 ## Credits
 
 <b>Author:</b> Reviniere (come say hi on [Twitch](https://twitch.tv/reviniere), especially let me know if you're going to stream with this mod, I'd love to stop by)
@@ -18,7 +24,9 @@ These steps assume you've already set up modimporter and have ModUtil.
 ### Prerequisites
 1) Minimum Python version 3.7
 2) Python library [TwitchIO](https://github.com/TwitchIO/TwitchIO), can be installed with: `pip install twitchio`
-3) You must have the latest [StyxScribe](https://github.com/SGG-Modding/StyxScribe) mod for Hades
+3) You must have [ModImporter](https://github.com/SGG-Modding/ModImporter/releases) in your Hades/Content directory
+4) You must have [ModUtil](https://github.com/SGG-Modding/ModUtil/releases/) in your Hades/Content/Mods folder
+5) You must have the latest [StyxScribe](https://github.com/SGG-Modding/StyxScribe) mod for Hades installed
 
 ### Setup steps
 1) Get a [Twitch Chat OAuth token](https://twitchapps.com/tmi/)
