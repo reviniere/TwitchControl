@@ -82,7 +82,7 @@ function TC.Send(message)
     if not err then
       local logLine = username .. " sent " .. sentFunction
       if TableLength(args) > 0 then
-        logLine = logLine .. ' : ' .. table.concat(args, ', ')
+        logLine = logLine .. ' : ' .. table.rawconcat(args, ', ')
       end
       ModUtil.Hades.PrintStack(logLine)
     end

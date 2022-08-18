@@ -146,7 +146,7 @@ function TC.Functions.DropBoon(username, god)
     for god,upgrade in pairs(TC.BoonMap) do
       table.insert(validGods, TC.titleize(god))
     end
-    TC.Reply('@' .. username .. ' God ' .. god .. ' not valid. Valid options: ' .. table.concat(validGods, ', '))
+    TC.Reply('@' .. username .. ' God ' .. god .. ' not valid. Valid options: ' .. table.rawconcat(validGods, ', '))
   end
 end
 function TC.Functions.Boon(username, god)
@@ -217,7 +217,7 @@ function TC.Functions.EquipKeepsake(username, newKeepsake)
     for gifter,trait in pairs(TC.KeepsakeMap) do
       table.insert(validGifters, TC.titleize(gifter))
     end
-    TC.Reply('@' .. username .. ' Keepsake ' .. TC.titleize(newKeepsake) .. ' not valid. Valid options: ' .. table.concat(validGifters, ', '))
+    TC.Reply('@' .. username .. ' Keepsake ' .. TC.titleize(newKeepsake) .. ' not valid. Valid options: ' .. table.rawconcat(validGifters, ', '))
   end
 end
 function TC.Functions.Keepsake(username, newKeepsake)
@@ -239,7 +239,7 @@ function TC.Functions.EquipSummon(username, newSummon)
     for summoner,trait in pairs(TC.SummonMap) do
       table.insert(validSummons, TC.titleize(summoner))
     end
-    TC.Reply('@' .. username .. ' Summon ' .. TC.titleize(newSummon) .. ' not valid. Valid options: ' .. table.concat(validSummons, ', '))
+    TC.Reply('@' .. username .. ' Summon ' .. TC.titleize(newSummon) .. ' not valid. Valid options: ' .. table.rawconcat(validSummons, ', '))
   end
 end
 function TC.Functions.Summon(username, newSummon)
@@ -258,7 +258,7 @@ function TC.Functions.EquipWeapon(username, newWeapon)
     for weapon,trait in pairs(TC.WeaponMap) do
       table.insert(validWeapons, TC.titleize(weapon))
     end
-    TC.Reply('@' .. username .. ' Weapon ' .. TC.titleize(newWeapon) .. ' not valid. Valid options: ' .. table.concat(validWeapons, ', '))
+    TC.Reply('@' .. username .. ' Weapon ' .. TC.titleize(newWeapon) .. ' not valid. Valid options: ' .. table.rawconcat(validWeapons, ', '))
   end
 end
 function TC.Functions.Weapon(username, newWeapon)
@@ -309,7 +309,7 @@ function TC.Functions.PactDown(username, pact)
     for pactCondition,pactOptions in pairs(TC.PactMap) do
       table.insert(validPacts, TC.titleize(pactCondition))
     end
-    TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' not valid. Valid options: ' .. table.concat(validPacts, ', '))
+    TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' not valid. Valid options: ' .. table.rawconcat(validPacts, ', '))
   end
 end
 
@@ -330,7 +330,7 @@ function TC.Functions.PactUp(username, pact)
     for pactCondition,pactOptions in pairs(TC.PactMap) do
       table.insert(validPacts, TC.titleize(pactCondition))
     end
-    TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' not valid. Valid options: ' .. table.concat(validPacts, ', '))
+    TC.Reply('@' .. username .. ' Pact ' .. TC.titleize(pact) .. ' not valid. Valid options: ' .. table.rawconcat(validPacts, ', '))
   end
 end
 
