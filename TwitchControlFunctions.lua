@@ -334,6 +334,10 @@ function TC.Functions.PactUp(username, pact)
   end
 end
 
+function TC.Functions.RandomWeapon()
+  TC.RandomWeapon = true
+end
+
 function TC.Functions.Rerolls(username, amount)
   amount = math.max(math.min(amount,5), -5)
   AddRerolls(amount, "Twitch", { IgnoreMetaUpgrades = true })

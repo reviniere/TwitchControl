@@ -74,8 +74,24 @@ function TC.Send(message)
       end
     end
 
+    if CurrentRun.CurrentRoom.Encounter.EncounterType == 'NonCombat' then
+      TC.Reply('@' .. username .. ' Commands can only be run in combat rooms, try again in the next room.')
+      return
+    end
+
+    if TC.BetweenRooms then
+      print('Message was received between rooms, trying again soon: ' .. message)
+      thread(TC.RetryCommand, message)
+      return
+    end
+    
+    local cooldownTime = 0
+    if TwitchControl.Config.FunctionCooldowns[sentFunction] then
+      cooldownTime = TwitchControl.Config.FunctionCooldowns[sentFunction]
+    end
+
     TC.Cooldowns.Users[username] = _worldTime + TwitchControl.Config.PerUserCooldown
-    TC.Cooldowns.Functions[sentFunction] = _worldTime + TwitchControl.Config.FunctionCooldowns[sentFunction]
+    TC.Cooldowns.Functions[sentFunction] = _worldTime + cooldownTime
 
     local ret, err = pcall(validCommand, username, table.unpack(args))
 
@@ -94,6 +110,11 @@ end
 
 function TC.Reply(msg)
   print("TwitchControl: Reply " .. msg)
+end
+
+function TC.RetryCommand(message)
+  wait(1.0)
+  TC.Send(message)
 end
 
 StyxScribe.AddHook(TC.Send, "TwitchControl: ", TwitchControl)
