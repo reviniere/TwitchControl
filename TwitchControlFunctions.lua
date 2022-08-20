@@ -246,24 +246,26 @@ function TC.Functions.Summon(username, newSummon)
   TC.Functions.EquipSummon(username, newSummon)
 end
 
-function TC.Functions.EquipWeapon(username, newWeapon)
-  local currentWeapon = TC.GetEquippedWeaponAspect()
-  local newWeaponData = TC.WeaponMap[string.lower(newWeapon)]
-  if newWeaponData then
-    RemoveTrait(CurrentRun.Hero, currentWeapon.Aspect)
-    EquipPlayerWeapon( WeaponData[newWeaponData.Weapon], { PreLoadBinks = true } )
-    AddTraitToHero({ TraitName = newWeaponData.Aspect, Rarity = "Legendary" })
-  else
-    validWeapons = {}
-    for weapon,trait in pairs(TC.WeaponMap) do
-      table.insert(validWeapons, TC.titleize(weapon))
-    end
-    TC.Reply('@' .. username .. ' Weapon ' .. TC.titleize(newWeapon) .. ' not valid. Valid options: ' .. table.rawconcat(validWeapons, ', '))
-  end
-end
-function TC.Functions.Weapon(username, newWeapon)
-  TC.Functions.EquipWeapon(username, newWeapon)
-end
+-- -- Try replacing EquipWeapon with RandomWeapon
+-- 
+-- function TC.Functions.EquipWeapon(username, newWeapon)
+--   local currentWeapon = TC.GetEquippedWeaponAspect()
+--   local newWeaponData = TC.WeaponMap[string.lower(newWeapon)]
+--   if newWeaponData then
+--     RemoveTrait(CurrentRun.Hero, currentWeapon.Aspect)
+--     EquipPlayerWeapon( WeaponData[newWeaponData.Weapon], { PreLoadBinks = true } )
+--     AddTraitToHero({ TraitName = newWeaponData.Aspect, Rarity = "Legendary" })
+--   else
+--     validWeapons = {}
+--     for weapon,trait in pairs(TC.WeaponMap) do
+--       table.insert(validWeapons, TC.titleize(weapon))
+--     end
+--     TC.Reply('@' .. username .. ' Weapon ' .. TC.titleize(newWeapon) .. ' not valid. Valid options: ' .. table.rawconcat(validWeapons, ', '))
+--   end
+-- end
+-- function TC.Functions.Weapon(username, newWeapon)
+--   TC.Functions.EquipWeapon(username, newWeapon)
+-- end
 
 function TC.Functions.Flashbang()
   FadeOut({Color = Color.White, Duration = 0})
