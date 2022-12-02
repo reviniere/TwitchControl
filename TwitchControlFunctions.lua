@@ -153,16 +153,14 @@ function TC.Functions.Boon(username, god)
   TC.Functions.DropBoon(username, god)
 end
 
-function TC.Functions.DropFood(username, amount)
-  if not amount then
-    amount = 1
-  end
-  for i=0,math.min(math.max(amount-1,0), 6) do 
+function TC.Functions.DropFood()
+  amount = 3
+  for i=0,amount-1 do 
     DropHealth( "HealDropRange", CurrentRun.Hero.ObjectId, 300, random()*6, true ) 
   end
 end
-function TC.Functions.Food(username, amount)
-  TC.Functions.DropFood(username, amount)
+function TC.Functions.Food()
+  TC.Functions.DropFood()
 end
 
 function TC.Functions.Dusa()
@@ -175,23 +173,15 @@ function TC.Functions.EnemiesHitShields()
     Heal(enemy, {HealFraction=1})
   end
 end
+function TC.Functions.EnemyHitShields()
+  TC.Functions.EnemiesHitShields()
+end
 
 function TC.Functions.EnemiesInvisible()
   for i, enemy in pairs( ActiveEnemies ) do
     SetAlpha({Id = i, Fraction = 0, Duration = 0.5})
   end
   thread( TwitchControl.Threads.EnemiesVisible )
-end
-
-function TC.Functions.EnemiesShields(username, amount)
-  amount = math.min(math.max(0,amount),1000)
-  for id, enemy in pairs( ActiveEnemies ) do
-    enemy.HealthBuffer = amount
-    Heal(enemy, {HealFraction=1})
-  end
-end
-function TC.Functions.EnemyShields(username, amount)
-  TC.Functions.EnemiesShields(username, amount)
 end
 
 function TC.Functions.EquipKeepsake(username, newKeepsake)

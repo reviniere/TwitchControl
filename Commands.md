@@ -25,10 +25,9 @@ Commands are not case sensitive.
 | Death Defiance Add | `!h DDAdd` | Run | Adds a death defiance and a new slot if needed |
 | Death Defiance Remove | `!h DDRemove` | Run | Removes a death defiance and its slot |
 | Drop Boon | `!h DropBoon god` | Encounter | Drops a room reward boon of the specified god.<br>e.g. `!h DropBoon Artemis`<br>Valid gods:<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Athena<br>* Chaos<br>* Demeter<br>* Dionysus<br>* Hermes<br>* Poseidon<br>* Zeus<br> |
-| Drop Food | `!h DropFood x` | Encounter | Drops x number of food items, max 6<br>e.g. `!h DropFood 1` |
+| Drop Food | `!h DropFood` | Encounter | Drops 3 food items |
 | Enemies Hit Shields | `!h EnemiesHitShields` | Encounter | Adds max hit shields to all active enemies, and heals them to full health |
 | Enemies Invisible | `!h EnemiesInvisible` | 30 sec<br>*Streamer*<br>*Configurable* | Makes all active enemies invisible |
-| Enemies Shields | `!h EnemiesShields x` | Encounter | Adds x amount of shield to all active enemies. Max 1000<br>e.g. `!h EnemiesShields 200` |
 | Equip Keepsake | `!h EquipKeepsake gifter` | Run | Change the currently equipped keepsake<br>e.g. `!h EquipKeepsake Nyx`<br>Valid gifters you can equip keepsakes from (in order of display in game):<br>* Cerberus<br>* Achilles<br>* Nyx<br>* Thanatos<br>* Charon<br>* Hypnos<br>* Meg<br>* Orpheus<br>* Dusa<br>* Skelly<br>* Zeus<br>* Poseidon<br>* Athena<br>* Aphrodite<br>* Ares<br>* Artemis<br>* Dionysus<br>* Hermes<br>* Demeter<br>* Chaos<br>* Sisyphus<br>* Eurydice<br>* Patroclus<br>* Persephone<br>* Hades |
 | Equip Summon | `!h EquipSummon gifter` | Run | Change the currently equipped summon<br>e.g. `!h EquipSummon Skelly`<br>Valid gifters you can equip summons from (in order of display in game):<br>* Meg<br>* Thanatos<br>* Sisyphus<br>* Skelly<br>* Dusa<br>* Achilles |
 | Eurydice Nectar | `!h EurydiceNectar` | Run | Gives the player the Eurydice powerup Refreshing Nectar (the next 3 Boons you find have upgraded Rarity) |
